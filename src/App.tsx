@@ -13,6 +13,9 @@ import Profile from "./pages/Profile";
 import SignUp from "./pages/Signup";
 import Wishlist from "./pages/Wishlist";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -66,6 +69,14 @@ function App() {
   return (
     <div>
       <RouterProvider router={router} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick={true}
+        draggable={true}
+        pauseOnHover={false}
+      />
     </div>
   );
 }
