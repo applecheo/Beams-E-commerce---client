@@ -1,84 +1,85 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./Layout";
-import BrowseMen from "./pages/BrowseMen";
-import BrowseWomen from "./pages/BrowseWomen";
-import Checkout from "./pages/Checkout";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Orders from "./pages/Orders";
-import ProductDetailMen from "./pages/ProductDetailMen";
-import ProductDetailWomen from "./pages/ProductDetailWomen";
-import Profile from "./pages/Profile";
-import SignUp from "./pages/Signup";
-import Wishlist from "./pages/Wishlist";
-
 import { ToastContainer } from "react-toastify";
+
+import BrowseMen from "pages/BrowseMen";
+import BrowseWomen from "pages/BrowseWomen";
+import Checkout from "pages/Checkout";
+import Home from "pages/Home";
+import Login from "pages/Login";
+import Orders from "pages/Orders";
+import ProductDetailMen from "pages/ProductDetailMen";
+import ProductDetailWomen from "pages/ProductDetailWomen";
+import Profile from "pages/Profile";
+import SignUp from "pages/Signup";
+import Wishlist from "pages/Wishlist";
+
+import Layout from "./Layout";
+
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        { index: true, element: <Home /> },
+    const router = createBrowserRouter([
         {
-          path: "/login",
-          element: <Login />,
+            path: "/",
+            element: <Layout />,
+            children: [
+                { index: true, element: <Home /> },
+                {
+                    path: "/login",
+                    element: <Login />,
+                },
+                {
+                    path: "/signup",
+                    element: <SignUp />,
+                },
+                {
+                    path: "account/orders/id",
+                    element: <Orders />,
+                },
+                {
+                    path: "/checkout",
+                    element: <Checkout />,
+                },
+                {
+                    path: "/men",
+                    element: <BrowseMen />,
+                },
+                {
+                    path: "/women",
+                    element: <BrowseWomen />,
+                },
+                {
+                    path: "/account/profile",
+                    element: <Profile />,
+                },
+                {
+                    path: "/account/wishlist",
+                    element: <Wishlist />,
+                },
+                {
+                    path: "/men/:id",
+                    element: <ProductDetailMen />,
+                },
+                {
+                    path: "/women/:id",
+                    element: <ProductDetailWomen />,
+                },
+            ],
         },
-        {
-          path: "/signup",
-          element: <SignUp />,
-        },
-        {
-          path: "account/orders/id",
-          element: <Orders />,
-        },
-        {
-          path: "/checkout",
-          element: <Checkout />,
-        },
-        {
-          path: "/men",
-          element: <BrowseMen />,
-        },
-        {
-          path: "/women",
-          element: <BrowseWomen />,
-        },
-        {
-          path: "/account/profile",
-          element: <Profile />,
-        },
-        {
-          path: "/account/wishlist",
-          element: <Wishlist />,
-        },
-        {
-          path: "/men/:id",
-          element: <ProductDetailMen />,
-        },
-        {
-          path: "/women/:id",
-          element: <ProductDetailWomen />,
-        },
-      ],
-    },
-  ]);
-  return (
-    <div>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        closeOnClick={true}
-        draggable={true}
-        pauseOnHover={false}
-      />
-    </div>
-  );
+    ]);
+    return (
+        <>
+            <RouterProvider router={router} />
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick={true}
+                draggable={true}
+                pauseOnHover={false}
+            />
+        </>
+    );
 }
 
 export default App;

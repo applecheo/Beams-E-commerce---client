@@ -1,27 +1,102 @@
-const men_cover_picture =
-  "https://images.unsplash.com/photo-1554924821-06226b7202e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c3RyZWV0JTIwZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60";
-const women_cover_picture =
-  "https://d2line.com/thatlook/wp-content/uploads/sites/4/2022/02/sneakers-streetwear-clothing-fashion-d2line-1-1024x683.png";
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+import ProductCard from "components/ProductCard";
+import { MEN_COVER_PICTURE_URL, WOMEN_COVER_PICTURE_URL } from "constants/index";
+
+type TDisplayProduct = {
+    _id: string;
+    name: string;
+    category: string;
+    gender: string;
+    images: string[];
+    isSold: boolean;
+    price: number;
+};
 
 const Home = () => {
-  return (
-    <div className="mx-32">
-      <div className="mt-4 flex justify-evenly">
-        <img
-          src={men_cover_picture}
-          alt="men-cover"
-          className="w-1/2 opacity-90 max-w-lg mr-2"
-          style={{ height: "360px" }}
-        />
-        <img
-          className="w-1/2 opacity-90 max-w-lg ml-2"
-          alt="women-cover"
-          style={{ height: "360px" }}
-          src={women_cover_picture}
-        />
-      </div>
-    </div>
-  );
+    const [displayProduct, setDisplayProduct] = useState<TDisplayProduct[]>([]);
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const res = await axios.get(process.env.REACT_APP_API_BASE_URL as string);
+            setDisplayProduct(res?.data);
+        };
+        fetchProduct();
+    }, []);
+
+    // LOADING
+    // SUCCESS
+    // ERROR
+
+    return (
+        <div className="mx-32">
+            <div className="mt-4 flex justify-evenly my-2">
+                <img
+                    src={MEN_COVER_PICTURE_URL}
+                    alt="men-cover"
+                    className="w-1/2 opacity-90 max-w-lg mr-2"
+                    style={{ height: "360px" }}
+                />
+                <img
+                    className="w-1/2 opacity-90 max-w-lg ml-2"
+                    alt="women-cover"
+                    style={{ height: "360px" }}
+                    src={WOMEN_COVER_PICTURE_URL}
+                />
+            </div>
+            <div>
+                <h1 className="text-l my-2 ml-1 font-medium">NEW ARRIVALS</h1>
+                <div className="flex">
+                    {displayProduct.map((product) => (
+                        <ProductCard key={product._id} {...product} />
+                    ))}
+                </div>
+            </div>
+            <div>
+                <h1 className="text-l my-2 ml-1 font-medium">CATEGORIES</h1>
+                <div className="flex mb-5">
+                    <div className="w-1/3 max-w-lg mr-2">
+                        <img
+                            src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2FMaison-Kitsune%CC%81-ig-2_unisexcategory.jpg?q=95"
+                            alt="shop-by-clothing-cover"
+                        />
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP MEN
+                        </span>
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP WOMEN
+                        </span>
+                    </div>
+
+                    <div className="w-1/3 max-w-lg mr-2">
+                        <img
+                            src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2FLoewe-Unisex-Page-Sep6.jpg?q=95"
+                            alt="shop-by-accessories-cover"
+                        />
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP MEN
+                        </span>
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP WOMEN
+                        </span>
+                    </div>
+
+                    <div className="w-1/3 max-w-lg mr-2">
+                        <img
+                            src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2Fasicsjjjjound-unisexcategory-shoes.jpg?q=95"
+                            alt="shop-by-shoes-cover"
+                        />
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP MEN
+                        </span>
+                        <span style={{ fontSize: "8px" }} className="mr-2 tracking-tighter ">
+                            SHOP WOMEN
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default Home;
