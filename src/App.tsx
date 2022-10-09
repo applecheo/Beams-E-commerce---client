@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { ShoppingCartProvider } from "context/ShoppingCartProvider";
+import Layout from "layout";
 import BrowseMen from "pages/BrowseMen";
 import BrowseWomen from "pages/BrowseWomen";
 import Checkout from "pages/Checkout";
@@ -14,11 +15,9 @@ import Profile from "pages/Profile";
 import SignUp from "pages/Signup";
 import Wishlist from "pages/Wishlist";
 
-import Layout from "./Layout";
-
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+const App = () => {
     const router = createBrowserRouter([
         {
             path: "/",
@@ -83,6 +82,6 @@ function App() {
             </ShoppingCartProvider>
         </>
     );
-}
+};
 
 export default App;
