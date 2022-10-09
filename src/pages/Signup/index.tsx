@@ -6,7 +6,8 @@ import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-const url = "http://localhost:3000/signup";
+const URL = process.env.REACT_APP_API_BASE_URL;
+
 const SignUp = () => {
     const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const SignUp = () => {
 
         onSubmit: async (values) => {
             try {
-                await axios.post(url, values, {
+                await axios.post(`${URL}/signup`, values, {
                     headers: {
                         "Content-Type": "application/json",
                     },

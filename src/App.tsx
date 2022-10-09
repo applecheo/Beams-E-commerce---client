@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { ShoppingCartProvider } from "context/ShoppingCartProvider";
 import BrowseMen from "pages/BrowseMen";
 import BrowseWomen from "pages/BrowseWomen";
 import Checkout from "pages/Checkout";
@@ -69,15 +70,17 @@ function App() {
     ]);
     return (
         <>
-            <RouterProvider router={router} />
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                closeOnClick={true}
-                draggable={true}
-                pauseOnHover={false}
-            />
+            <ShoppingCartProvider>
+                <RouterProvider router={router} />
+                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={true}
+                    closeOnClick={true}
+                    draggable={false}
+                    pauseOnHover={false}
+                />
+            </ShoppingCartProvider>
         </>
     );
 }
