@@ -25,7 +25,7 @@ const Home = () => {
             <div>
                 <h1 className="text-l my-2 ml-1 font-medium">NEW ARRIVALS</h1>
                 <div className="flex">
-                    {newArrivalData.map((product) => (
+                    {newArrivalData?.map((product) => (
                         <ProductCard key={product._id} {...product} />
                     ))}
                 </div>

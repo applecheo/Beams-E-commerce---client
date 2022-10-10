@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
-import ShoppingCart from "components/ShoppingCart";
+import axios from "axios";
 
 type TShoppingCartProviderProps = {
     children: ReactNode;
@@ -9,14 +10,21 @@ type TShoppingCartProviderProps = {
 type TShoppingCartContext = {
     openCart: () => void;
     closeCart: () => void;
+    isOpen: boolean;
     addToCart: (id: string) => void;
     cartItems: TCartItems[];
     removeFromCart: (id: string) => void;
+    sendOrderDetail: (data: TOrderDetails) => void;
 };
 
 export type TCartItems = {
     id: string;
     quantity: number;
+};
+
+type TOrderDetails = {
+    orderedBy: string;
+    products: string[];
 };
 
 const ShoppingCartContext = createContext({} as TShoppingCartContext);
@@ -39,6 +47,7 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
     const addToCart = (id: string) => {
         setCartItems((prev) => {
             if (prev.find((item) => item.id === id) == null) {
+                toast.success("Added to cart");
                 return [...prev, { id, quantity: 1 }];
             } else {
                 return prev.map((item) => {
@@ -58,10 +67,16 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         });
     };
 
+    const sendOrderDetail = async (data: TOrderDetails) => {
+        setCartItems([]);
+        closeCart();
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
+    };
     return (
-        <ShoppingCartContext.Provider value={{ openCart, closeCart, addToCart, cartItems, removeFromCart }}>
+        <ShoppingCartContext.Provider
+            value={{ openCart, isOpen, closeCart, addToCart, cartItems, removeFromCart, sendOrderDetail }}
+        >
             {children}
-            <ShoppingCart isOpen={isOpen} />
         </ShoppingCartContext.Provider>
     );
 };

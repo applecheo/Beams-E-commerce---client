@@ -23,7 +23,7 @@ const ProductCard = ({ name, images, price, _id }: TProductCard) => {
     return (
         <div className="flex flex-col px-1 items-center " onClick={() => setDisplayAndNavigate(_id)}>
             <img src={images[0]} alt={name} className="" />
-            <p className="leading-tight " style={{ fontSize: "8px" }}>
+            <p className="leading-tight" style={{ fontSize: "10px" }}>
                 {name}
             </p>
             <p className="text-xs align-bottom ">${price}</p>

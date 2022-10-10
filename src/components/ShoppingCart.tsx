@@ -1,19 +1,47 @@
 import { Fragment } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useAuth } from "context/AuthProvider";
 import { useProductDetails } from "context/ProductDetailsProvider";
 import { useShoppingCart } from "context/ShoppingCartProvider";
 
 import CartItem from "./CartItem";
 
-type ShoppingCartProps = {
-    isOpen: boolean;
-};
-const ShoppingCart = ({ isOpen }: ShoppingCartProps) => {
-    const { closeCart, cartItems } = useShoppingCart();
+const ShoppingCart = () => {
+    const { closeCart, isOpen, cartItems, sendOrderDetail } = useShoppingCart();
+    const { user } = useAuth();
     const { productData } = useProductDetails();
+    const navigate = useNavigate();
 
+    const checkout = () => {
+        const productIds = cartItems.map((product) => product.id);
+        const data = {
+            orderedBy: user,
+            products: productIds,
+        };
+        if (user && data.products.length !== 0) {
+            navigate("/checkout");
+            sendOrderDetail(data);
+            return toast.success("Order haven been placed");
+        } else if (!user) {
+            closeCart();
+            navigate("/login");
+            return toast.error("Please Login");
+        } else {
+            closeCart();
+            return toast.error("Nothing in your cart");
+        }
+    };
+
+    {
+        cartItems.reduce((total, cartItems) => {
+            const product = productData.find((product) => product._id === cartItems.id);
+            return total + (product?.price || 0);
+        }, 0);
+    }
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeCart}>
@@ -84,7 +112,10 @@ const ShoppingCart = ({ isOpen }: ShoppingCartProps) => {
                                                 Shipping and taxes calculated at checkout.
                                             </p>
                                             <div className="mt-3">
-                                                <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-2 py-1 text-base font-medium text-white shadow-sm hover:drop-shadow-2xl w-52">
+                                                <button
+                                                    onClick={checkout}
+                                                    className="flex items-center justify-center rounded-md border border-transparent bg-black px-2 py-1 text-base font-medium text-white shadow-sm hover:drop-shadow-2xl w-52"
+                                                >
                                                     Checkout
                                                 </button>
                                             </div>

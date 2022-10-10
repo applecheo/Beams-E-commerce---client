@@ -4,7 +4,7 @@ const Checkout = () => {
     return (
         <div>
             <h1>
-                Your order id: <span> 1234568</span>
+                Your order id: <span> {}</span>
             </h1>
             <p>Thanks for shopping with us</p>
             <Link to="/" className="text-xl underline">

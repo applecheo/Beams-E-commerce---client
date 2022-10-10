@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import axios from "axios";
+import { useAuth } from "context/AuthProvider";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 const URL = process.env.REACT_APP_API_BASE_URL;
 
 const Login = () => {
     const navigate = useNavigate();
-
+    const { updateUser } = useAuth();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -32,7 +33,7 @@ const Login = () => {
                 navigate("/");
                 const token = res.data.token;
                 sessionStorage.setItem("token_key", token);
-
+                updateUser(res.data.user._id);
                 return toast.success("Login Successful");
             } catch (error) {
                 return toast.error("Please use a valid email and password");

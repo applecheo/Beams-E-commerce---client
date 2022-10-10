@@ -1,21 +1,25 @@
-import { createContext, ReactElement, useState } from "react";
+import { createContext, ReactElement, useContext, useState } from "react";
 
 type TAuthProviderProps = {
     children: ReactElement;
 };
 
 type TAuthContext = {
-    updateUser: (email: string) => void;
+    updateUser: (id: string) => void;
     user: string;
 };
 
 const AuthContext = createContext({} as TAuthContext);
 
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
+
 export const AuthProvider = ({ children }: TAuthProviderProps) => {
     const [user, setUser] = useState("");
 
-    const updateUser = (email: string) => {
-        setUser(email);
+    const updateUser = (id: string) => {
+        setUser(id);
     };
 
     return (
