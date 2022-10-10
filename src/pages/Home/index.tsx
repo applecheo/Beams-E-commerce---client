@@ -1,32 +1,10 @@
-import { useEffect, useState } from "react";
-
-import axios from "axios";
 import ProductCard from "components/ProductCard";
 import { MEN_COVER_PICTURE_URL, WOMEN_COVER_PICTURE_URL } from "constants/index";
-
-type TDisplayProduct = {
-    _id: string;
-    name: string;
-    category: string;
-    gender: string;
-    images: string[];
-    isSold: boolean;
-    price: number;
-};
+import { useProductDetails } from "context/ProductDetailsProvider";
 
 const Home = () => {
-    const [displayProduct, setDisplayProduct] = useState<TDisplayProduct[]>([]);
-    useEffect(() => {
-        const fetchProduct = async () => {
-            const res = await axios.get(process.env.REACT_APP_API_BASE_URL as string);
-            setDisplayProduct(res?.data);
-        };
-        fetchProduct();
-    }, []);
-
-    // LOADING
-    // SUCCESS
-    // ERROR
+    const { newArrivalData } = useProductDetails();
+    //use new arrival data
 
     return (
         <div className="mx-32">
@@ -47,7 +25,7 @@ const Home = () => {
             <div>
                 <h1 className="text-l my-2 ml-1 font-medium">NEW ARRIVALS</h1>
                 <div className="flex">
-                    {displayProduct.map((product) => (
+                    {newArrivalData.map((product) => (
                         <ProductCard key={product._id} {...product} />
                     ))}
                 </div>

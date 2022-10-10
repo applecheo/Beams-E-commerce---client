@@ -11,7 +11,7 @@ const Generate = () => {
             url: "https://asos2.p.rapidapi.com/products/v3/detail",
             params: {
                 //change id
-                id: "203369097",
+                id: "203817310",
                 lang: "en-US",
                 store: "US",
                 sizeSchema: "US",
@@ -46,6 +46,7 @@ const Generate = () => {
         gender: data?.gender,
         category: data?.productType?.name,
         size: "S",
+        isNewArrival: true,
     };
     const add = (values) => async () => {
         try {

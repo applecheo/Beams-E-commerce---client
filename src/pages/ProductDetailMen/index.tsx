@@ -1,5 +1,73 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
+import { TDisplayProduct, useProductDetails } from "context/ProductDetailsProvider";
+import { useShoppingCart } from "context/ShoppingCartProvider";
+
 const ProductDetailMen = () => {
-  return <div>ProductDetailMen Page</div>;
+    const { productData, display } = useProductDetails();
+    const { addToCart } = useShoppingCart();
+    const [currentViewing, setCurrentViewing] = useState<TDisplayProduct>({} as TDisplayProduct);
+    const { id } = useParams();
+
+    const displayDetail = async () => {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/men/${id}` as string);
+        const data = res?.data;
+        setCurrentViewing(data);
+    };
+
+    useEffect(() => {
+        const viewProduct = productData.find((x) => x._id === display);
+        if (viewProduct) {
+            return setCurrentViewing(viewProduct);
+        } else {
+            displayDetail();
+        }
+    }, []);
+
+    return (
+        <div className="mx-32">
+            <div className="flex my-5 justify-around">
+                <div className="grid grid-cols-2 ">
+                    {currentViewing?.images?.map((img) => (
+                        <img src={img} key={img} className="w-32 h-48 m-2" />
+                    ))}
+                </div>
+                <div className="flex flex-col">
+                    <div className="pl-20">
+                        <h1 className="text-2xl">{currentViewing.name}</h1>
+                        <p>${currentViewing.price}</p>
+                        <p>Size: {currentViewing.size}</p>
+                        <p>
+                            Quantity:
+                            {
+                                productData
+                                    .filter((product) => product.name === currentViewing.name)
+                                    .filter((productSize) => productSize.size === currentViewing.size).length
+                            }
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center mt-5">
+                        {id && (
+                            <button
+                                onClick={() => addToCart(id)}
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-36"
+                            >
+                                Add To Cart
+                            </button>
+                        )}
+
+                        {id && (
+                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-36">
+                                Add to WishList
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default ProductDetailMen;
