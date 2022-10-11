@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { AuthProvider } from "context/AuthProvider";
+import { OrderDetailsDetailsProvider } from "context/OrderDetailsProvider";
 import { ProductDetailsProvider } from "context/ProductDetailsProvider";
 import { ShoppingCartProvider } from "context/ShoppingCartProvider";
 import Layout from "layout";
@@ -35,7 +36,7 @@ const App = () => {
                     element: <SignUp />,
                 },
                 {
-                    path: "account/orders/id",
+                    path: "account/orders/:id",
                     element: <Orders />,
                 },
                 {
@@ -48,7 +49,7 @@ const App = () => {
                 },
                 {
                     path: "/women",
-                    element: <BrowseWomen />,
+                    element: <BrowseWomen />, //extra
                 },
                 {
                     path: "/account/profile",
@@ -64,7 +65,7 @@ const App = () => {
                 },
                 {
                     path: "/women/:id",
-                    element: <ProductDetailWomen />,
+                    element: <ProductDetailWomen />, //extra
                 },
             ],
         },
@@ -73,18 +74,20 @@ const App = () => {
         <>
             <AuthProvider>
                 <ProductDetailsProvider>
-                    <ShoppingCartProvider>
-                        <RouterProvider router={router} />
+                    <OrderDetailsDetailsProvider>
+                        <ShoppingCartProvider>
+                            <RouterProvider router={router} />
 
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={3000}
-                            hideProgressBar={true}
-                            closeOnClick={true}
-                            draggable={false}
-                            pauseOnHover={false}
-                        />
-                    </ShoppingCartProvider>
+                            <ToastContainer
+                                position="top-right"
+                                autoClose={3000}
+                                hideProgressBar={true}
+                                closeOnClick={true}
+                                draggable={false}
+                                pauseOnHover={false}
+                            />
+                        </ShoppingCartProvider>
+                    </OrderDetailsDetailsProvider>
                 </ProductDetailsProvider>
             </AuthProvider>
         </>

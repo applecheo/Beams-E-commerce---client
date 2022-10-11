@@ -19,7 +19,7 @@ export type TDisplayProduct = {
     category: string;
     gender: string;
     images: string[];
-    isSold: boolean;
+    isSoldOut: boolean;
     price: number;
     isNewArrival: boolean;
     size: string;

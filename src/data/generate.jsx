@@ -45,8 +45,8 @@ const Generate = () => {
         price: data?.price?.current?.value,
         gender: data?.gender,
         category: data?.productType?.name,
-        size: "S",
-        isNewArrival: true,
+        size: "M",
+        isNewArrival: false,
     };
     const add = (values) => async () => {
         try {

@@ -48,18 +48,18 @@ const ProductDetailMen = () => {
                             }
                         </p>
                     </div>
-                    <div className="flex flex-col items-center mt-5">
+                    <div className="flex flex-col items-center mt-10">
                         {id && (
                             <button
                                 onClick={() => addToCart(id)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-36"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-44"
                             >
                                 Add To Cart
                             </button>
                         )}
 
                         {id && (
-                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-36">
+                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-44">
                                 Add to WishList
                             </button>
                         )}

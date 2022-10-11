@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 
 import axios from "axios";
 
+import { useOrderDetails } from "./OrderDetailsProvider";
+
 type TShoppingCartProviderProps = {
     children: ReactNode;
 };
@@ -36,6 +38,7 @@ export const useShoppingCart = () => {
 export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [cartItems, setCartItems] = useState<TCartItems[]>([]); //as array
+    const { getOrderId, updateUserOrder } = useOrderDetails();
 
     const openCart = () => {
         setIsOpen(true);
@@ -67,10 +70,22 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         });
     };
 
+    // const sendOrderDetail = async (data: TOrderDetails) => {
+    //     setCartItems([]);
+    //     closeCart();
+    //     const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
+    //     const orderId = res.data._id;
+    //     getOrderId(orderId);
+    //     updateUserOrder(res.data.orderedBy);
+    // };
+
     const sendOrderDetail = async (data: TOrderDetails) => {
         setCartItems([]);
         closeCart();
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
+        const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
+        const orderId = res.data._id;
+        getOrderId(orderId);
+        // updateUserOrder(res.data.orderedBy); //update user order user
     };
     return (
         <ShoppingCartContext.Provider
