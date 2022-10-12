@@ -2,6 +2,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 import axios from "axios";
 
+import { useAuth } from "./AuthProvider";
+
 type TOrderDetailsProviderProps = {
     children: ReactNode;
 };
@@ -56,6 +58,7 @@ export const OrderDetailsDetailsProvider = ({ children }: TOrderDetailsProviderP
     const [orderId, setOrderId] = useState("");
     const [orderDetails, setOrderDetails] = useState<TOrderDetail>({} as TOrderDetail);
     const [userViewOrder, setUserViewOrder] = useState<TOrder>({} as TOrder);
+    const { user } = useAuth();
 
     const getOrderId = (orderId: string) => {
         setOrderId(orderId);
@@ -64,9 +67,9 @@ export const OrderDetailsDetailsProvider = ({ children }: TOrderDetailsProviderP
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
         setOrderDetails(res.data);
     };
-    const updateUserOrder = async (userId: string) => {
+    const updateUserOrder = async (orderId: string) => {
         const body = { body: orderId };
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userId}` as string, body);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${user}` as string, body);
         // console.log(res.data);
         //maybe useful
     };
@@ -74,7 +77,6 @@ export const OrderDetailsDetailsProvider = ({ children }: TOrderDetailsProviderP
     const getUserViewOrder = async (id: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/detail/${id}` as string);
         setUserViewOrder(res.data);
-        console.log(res.data);
     };
     return (
         <OrderDetailsContext.Provider

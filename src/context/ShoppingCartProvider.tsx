@@ -70,22 +70,13 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         });
     };
 
-    // const sendOrderDetail = async (data: TOrderDetails) => {
-    //     setCartItems([]);
-    //     closeCart();
-    //     const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
-    //     const orderId = res.data._id;
-    //     getOrderId(orderId);
-    //     updateUserOrder(res.data.orderedBy);
-    // };
-
     const sendOrderDetail = async (data: TOrderDetails) => {
         setCartItems([]);
         closeCart();
         const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
         const orderId = res.data._id;
         getOrderId(orderId);
-        // updateUserOrder(res.data.orderedBy); //update user order user
+        updateUserOrder(orderId); //update user order user
     };
     return (
         <ShoppingCartContext.Provider

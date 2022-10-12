@@ -35,7 +35,7 @@ const Navbar = () => {
                     onMouseLeave={() => setOpen(false)}
                 >
                     <div>
-                        <button className="w-5 m-4 ">
+                        <div className="w-5 m-4 ">
                             <svg
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -49,7 +49,7 @@ const Navbar = () => {
                                 <path d="M3,21 h18 C 21,12 3,12 3,21" />
                             </svg>
                             {open === true && <DropDown />}
-                        </button>
+                        </div>
                     </div>
                 </div>
             </div>
