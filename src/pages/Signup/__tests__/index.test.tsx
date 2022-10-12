@@ -77,7 +77,7 @@ describe("SignUp", () => {
             const lastNameInput = screen.getByRole("textbox", { name: "Last Name" });
             const emailInput = screen.getByRole("textbox", { name: "Email Address" });
             const passwordInput = screen.getByLabelText("Password");
-            const confirmPasswordInput = screen.getByText("Confirm Password");
+            const confirmPasswordInput = screen.getByLabelText("Confirm Password");
 
             userEvent.click(firstNameInput);
             userEvent.click(lastNameInput);

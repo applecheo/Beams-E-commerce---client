@@ -18,7 +18,7 @@ const Orders = () => {
         }
     }, []);
 
-    const test = (productId: string) => {
+    const fetchUserOrder = (productId: string) => {
         if (userViewOrder._id === productId) {
             return;
         } else {
@@ -34,7 +34,7 @@ const Orders = () => {
                         {orderDetails?.orders?.map((product: TProduct) => (
                             <div key={product?._id} className="px-1 m-1 border-2 border-black">
                                 <li
-                                    onMouseOver={() => test(product?._id)}
+                                    onMouseOver={() => fetchUserOrder(product?._id)}
                                     onClick={() => setIsView(true)}
                                     className="cursor-pointer list-disc leading-tight pr-1 "
                                 >

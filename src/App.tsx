@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { AuthProvider } from "context/AuthProvider";
-import { OrderDetailsDetailsProvider } from "context/OrderDetailsProvider";
+import { OrderDetailsProvider } from "context/OrderDetailsProvider";
 import { ProductDetailsProvider } from "context/ProductDetailsProvider";
 import { ShoppingCartProvider } from "context/ShoppingCartProvider";
 import Layout from "layout";
@@ -74,7 +74,7 @@ const App = () => {
         <>
             <AuthProvider>
                 <ProductDetailsProvider>
-                    <OrderDetailsDetailsProvider>
+                    <OrderDetailsProvider>
                         <ShoppingCartProvider>
                             <RouterProvider router={router} />
 
@@ -87,7 +87,7 @@ const App = () => {
                                 pauseOnHover={false}
                             />
                         </ShoppingCartProvider>
-                    </OrderDetailsDetailsProvider>
+                    </OrderDetailsProvider>
                 </ProductDetailsProvider>
             </AuthProvider>
         </>

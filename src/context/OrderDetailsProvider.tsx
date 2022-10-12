@@ -34,17 +34,11 @@ export type TOrder = {
 
 type TProduct = {
     _id: string;
-
     name: string;
-
     price: number;
-
     category: string;
-
     gender: string;
-
     images: string[];
-
     size: string;
 };
 
@@ -54,7 +48,7 @@ export const useOrderDetails = () => {
     return useContext(OrderDetailsContext);
 };
 
-export const OrderDetailsDetailsProvider = ({ children }: TOrderDetailsProviderProps) => {
+export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) => {
     const [orderId, setOrderId] = useState("");
     const [orderDetails, setOrderDetails] = useState<TOrderDetail>({} as TOrderDetail);
     const [userViewOrder, setUserViewOrder] = useState<TOrder>({} as TOrder);
@@ -76,6 +70,7 @@ export const OrderDetailsDetailsProvider = ({ children }: TOrderDetailsProviderP
 
     const getUserViewOrder = async (id: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/detail/${id}` as string);
+        console.dir(res.data.products);
         setUserViewOrder(res.data);
     };
     return (

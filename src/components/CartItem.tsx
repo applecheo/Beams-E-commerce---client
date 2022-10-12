@@ -7,11 +7,11 @@ const CartItem = ({ id, quantity }: TCartItems) => {
     const item = productData.find((product) => product._id === id);
     if (item === null) return null;
     return (
-        <div className="mt-4">
+        <div className="mt-4 px-1">
             <div className="flow-root">
                 <ul role="list" className="-my-6 divide-y divide-gray-200">
                     <li key={id} className="flex py-6">
-                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                        <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
                             <img
                                 src={item?.images[0]}
                                 alt={item?.images[0]}

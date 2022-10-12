@@ -12,11 +12,11 @@ const Home = () => {
                 <img
                     src={MEN_COVER_PICTURE_URL}
                     alt="men-cover"
-                    className="w-1/2 opacity-90 max-w-lg mr-2"
+                    className="w-1/2 opacity-90 max-w-lg mr-2 object-cover"
                     style={{ height: "360px" }}
                 />
                 <img
-                    className="w-1/2 opacity-90 max-w-lg ml-2"
+                    className="w-1/2 opacity-90 max-w-lg ml-2 object-cover"
                     alt="women-cover"
                     style={{ height: "360px" }}
                     src={WOMEN_COVER_PICTURE_URL}

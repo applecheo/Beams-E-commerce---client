@@ -1,7 +1,11 @@
-import { render } from "testUtils";
+import { render, screen } from "testUtils";
 
 import Home from "..";
 
-it("should render home page when click", async () => {
-    render(<Home />);
+describe("HomePage", () => {
+    it("should render homepage", async () => {
+        render(<Home />);
+        const allImages = screen.getAllByRole("img");
+        expect(allImages.length).toBe(5);
+    });
 });
