@@ -11,7 +11,7 @@ const URL = process.env.REACT_APP_API_BASE_URL;
 
 const Login = () => {
     const navigate = useNavigate();
-    const { updateUser } = useAuth();
+    const { updateUser, updateUserData } = useAuth();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -33,7 +33,9 @@ const Login = () => {
                 navigate("/");
                 const token = res.data.token;
                 sessionStorage.setItem("token_key", token);
+                updateUserData(res.data.user);
                 updateUser(res.data.user._id);
+
                 return toast.success("Login Successful");
             } catch (error) {
                 return toast.error("Please use a valid email and password");

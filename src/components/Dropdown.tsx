@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "context/AuthProvider";
 
 const DropDown = () => {
     const { user } = useAuth();
     const linkToOrder = `/account/orders/${user}`;
+    const navigate = useNavigate();
+    const signOut = () => {
+        navigate("/");
+        sessionStorage.removeItem("token_key");
+        window.location.reload();
+    };
     return (
         <>
             <div
@@ -67,7 +73,7 @@ const DropDown = () => {
                             role="menuitem"
                             tabIndex={-1}
                             id="menu-item-3"
-                            onClick={() => window.location.reload()}
+                            onClick={signOut}
                         >
                             Sign out
                         </button>
