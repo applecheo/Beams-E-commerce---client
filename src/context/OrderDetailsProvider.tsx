@@ -64,13 +64,11 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     const updateUserOrder = async (orderId: string) => {
         const body = { body: orderId };
         await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${user}` as string, body);
-        // console.log(res.data);
         //maybe useful
     };
 
     const getUserViewOrder = async (id: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/detail/${id}` as string);
-        console.dir(res.data.products);
         setUserViewOrder(res.data);
     };
     return (

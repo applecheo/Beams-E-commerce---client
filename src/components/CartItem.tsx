@@ -4,7 +4,7 @@ import { TCartItems, useShoppingCart } from "context/ShoppingCartProvider";
 const CartItem = ({ id, quantity }: TCartItems) => {
     const { productData } = useProductDetails();
     const { removeFromCart } = useShoppingCart();
-    const item = productData.find((product) => product._id === id);
+    const item = productData?.find((product) => product?._id === id);
     if (item === null) return null;
     return (
         <div className="mt-4 px-1">

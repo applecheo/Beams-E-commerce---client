@@ -37,8 +37,8 @@ const ShoppingCart = () => {
     };
 
     {
-        cartItems.reduce((total, cartItems) => {
-            const product = productData.find((product) => product._id === cartItems.id);
+        cartItems?.reduce((total, cartItems) => {
+            const product = productData?.find((product) => product?._id === cartItems?.id);
             return total + (product?.price || 0);
         }, 0);
     }
@@ -92,17 +92,17 @@ const ShoppingCart = () => {
                                                 <div className="flow-root"></div>
                                             </div>
                                         </div>
-                                        {cartItems.map((item) => (
-                                            <CartItem key={item.id} {...item} />
+                                        {cartItems?.map((item) => (
+                                            <CartItem key={item?.id} {...item} />
                                         ))}
                                         <div className="border-t border-gray-200 py-2 px-4 mt-4">
                                             <div className="flex justify-between text-base font-medium text-gray-900">
                                                 <p className="text-sm">Subtotal</p>
                                                 <p>
                                                     $
-                                                    {cartItems.reduce((total, cartItems) => {
-                                                        const product = productData.find(
-                                                            (product) => product._id === cartItems.id
+                                                    {cartItems?.reduce((total, cartItems) => {
+                                                        const product = productData?.find(
+                                                            (product) => product?._id === cartItems?.id
                                                         );
                                                         return total + (product?.price || 0);
                                                     }, 0)}

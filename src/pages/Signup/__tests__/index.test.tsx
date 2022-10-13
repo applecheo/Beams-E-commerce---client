@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 import axios from "axios";
-import { render, screen, userEvent, waitFor } from "testUtils";
+import { customRender, screen, userEvent, waitFor } from "testUtils";
 
 import SignUp from "..";
 
@@ -18,7 +18,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("SignUp", () => {
     it("should render sign up screen", () => {
-        render(<SignUp />);
+        customRender(<SignUp />);
         const allPasswordInput = screen.getAllByLabelText(/password/i);
         expect(allPasswordInput).toHaveLength(2);
 
@@ -33,7 +33,7 @@ describe("SignUp", () => {
     });
 
     it("should send a post req after user submit the form", async () => {
-        render(<SignUp />);
+        customRender(<SignUp />);
 
         fillUpAndSubmitForm();
 
@@ -53,7 +53,7 @@ describe("SignUp", () => {
     });
 
     it("should redirect to login page upon successful submission", async () => {
-        render(<SignUp />);
+        customRender(<SignUp />);
 
         fillUpAndSubmitForm();
 
@@ -63,7 +63,7 @@ describe("SignUp", () => {
     it("should show error when there is error submitting form", async () => {
         mockAxios.post.mockRejectedValue(new Error("Async error"));
 
-        render(<SignUp />);
+        customRender(<SignUp />);
 
         fillUpAndSubmitForm();
 
@@ -72,7 +72,7 @@ describe("SignUp", () => {
 
     describe("Error validation", () => {
         it("should render error when required is not met", async () => {
-            render(<SignUp />);
+            customRender(<SignUp />);
             const firstNameInput = screen.getByRole("textbox", { name: "First Name" });
             const lastNameInput = screen.getByRole("textbox", { name: "Last Name" });
             const emailInput = screen.getByRole("textbox", { name: "Email Address" });
@@ -98,7 +98,7 @@ describe("SignUp", () => {
         `(
             "should render error when $fieldName $inputValue is not valid",
             async ({ fieldName, inputValue, errorMessage }) => {
-                render(<SignUp />);
+                customRender(<SignUp />);
                 const input = screen.getByRole("textbox", { name: fieldName });
                 userEvent.clear(input);
                 userEvent.type(input, inputValue);
@@ -109,7 +109,7 @@ describe("SignUp", () => {
         );
 
         it("should render error when input password error", async () => {
-            render(<SignUp />);
+            customRender(<SignUp />);
             const passwordInput = screen.getByLabelText("Password");
             const confirmPasswordInput = screen.getByLabelText("Confirm Password");
             userEvent.clear(passwordInput);

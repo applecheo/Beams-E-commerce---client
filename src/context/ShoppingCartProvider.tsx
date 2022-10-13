@@ -9,7 +9,7 @@ type TShoppingCartProviderProps = {
     children: ReactNode;
 };
 
-type TShoppingCartContext = {
+export type TShoppingCartContext = {
     openCart: () => void;
     closeCart: () => void;
     isOpen: boolean;
@@ -29,7 +29,7 @@ type TOrderDetails = {
     products: string[];
 };
 
-const ShoppingCartContext = createContext({} as TShoppingCartContext);
+export const ShoppingCartContext = createContext({} as TShoppingCartContext);
 
 export const useShoppingCart = () => {
     return useContext(ShoppingCartContext);

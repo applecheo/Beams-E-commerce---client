@@ -7,9 +7,8 @@ import userEvent from "@testing-library/user-event";
 const customRender = (ui: ReactElement) => render(ui, { wrapper: BrowserRouter });
 
 export * from "@testing-library/react";
-export { userEvent };
 
-export { customRender as render };
+export { customRender, userEvent };
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -38,3 +37,5 @@ const ProviderRender = (ui: ReactElement) => render(ui, { wrapper: AllTheProvide
 
 export * from "@testing-library/react";
 export { ProviderRender as providerRender };
+
+// -----------------------------------------------------------------------------------------

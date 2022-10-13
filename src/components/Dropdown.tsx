@@ -7,8 +7,8 @@ const DropDown = () => {
     const linkToOrder = `/account/orders/${user}`;
     const navigate = useNavigate();
     const signOut = () => {
-        navigate("/");
         sessionStorage.removeItem("token_key");
+        navigate("/");
         window.location.reload();
     };
     return (
@@ -62,11 +62,7 @@ const DropDown = () => {
                         </Link>
                     )}
 
-                    {!user ? (
-                        <Link to="/login" className="text-black block  text-sm">
-                            Login
-                        </Link>
-                    ) : (
+                    {user ? (
                         <button
                             type="submit"
                             className="text-black block  text-sm"
@@ -77,6 +73,10 @@ const DropDown = () => {
                         >
                             Sign out
                         </button>
+                    ) : (
+                        <Link to="/login" className="text-black block  text-sm">
+                            Login
+                        </Link>
                     )}
                 </div>
             </div>

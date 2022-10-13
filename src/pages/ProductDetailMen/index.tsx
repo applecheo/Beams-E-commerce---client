@@ -25,7 +25,6 @@ const ProductDetailMen = () => {
             displayDetail();
         }
     }, []);
-
     return (
         <div className="mx-32">
             <div className="flex my-5 justify-around">

@@ -1,10 +1,10 @@
-import { render, screen } from "testUtils";
+import { customRender, screen } from "testUtils";
 
 import Checkout from "..";
 
 describe("Checkout", () => {
     it("should render checkout page", () => {
-        render(<Checkout />);
+        customRender(<Checkout />);
         const orderHeader = screen.getByRole("heading", { name: "Order id:" });
         expect(orderHeader).toBeInTheDocument();
 

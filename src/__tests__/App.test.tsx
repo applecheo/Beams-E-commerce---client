@@ -1,6 +1,6 @@
-import { render } from "@testing-library/react";
 import App from "App";
+import { render } from "testUtils";
 
-test("hello", () => {
+test("expect page to render app", () => {
     render(<App />);
 });

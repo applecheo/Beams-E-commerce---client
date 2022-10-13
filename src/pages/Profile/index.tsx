@@ -10,11 +10,7 @@ const Profile = () => {
     const navigate = useNavigate();
     const deleteUser = async () => {
         if (confirmDelete === true && userData) {
-            console.log(userData._id);
-            const res = await axios.delete(
-                `${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData._id}` as string
-            );
-            console.log(res);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData._id}` as string);
             navigate("/");
             sessionStorage.removeItem("token_key");
             window.location.reload();

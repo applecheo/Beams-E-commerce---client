@@ -2,7 +2,7 @@ import { MemoryRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import axios from "axios";
-import { providerRender, render, screen, userEvent, waitFor } from "testUtils";
+import { customRender, providerRender, screen, userEvent, waitFor } from "testUtils";
 
 import Login from "..";
 
@@ -20,7 +20,7 @@ beforeEach(() => {
 
 describe("Login", () => {
     it("should render login page", () => {
-        render(<Login />);
+        customRender(<Login />);
         const heading = screen.getByRole("heading", { name: "Beams" });
         expect(heading).toBeInTheDocument();
 
@@ -41,7 +41,7 @@ describe("Login", () => {
     });
 
     it("should login when login button is clicked", async () => {
-        render(<Login />);
+        customRender(<Login />);
         fillUpAndSubmitForm();
 
         await waitFor(() =>
@@ -57,7 +57,7 @@ describe("Login", () => {
     });
 
     it("should navigate to home upon login", async () => {
-        render(<Login />);
+        customRender(<Login />);
         fillUpAndSubmitForm();
 
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
@@ -110,7 +110,7 @@ describe("Login", () => {
 
 describe("Error validation", () => {
     it("should toastify error for null input after submit", async () => {
-        render(<Login />);
+        customRender(<Login />);
         const emailInput = screen.getByRole("textbox", { name: "Email Address" });
         const passwordInput = screen.getByLabelText(/password/i);
         const loginButton = screen.getByRole("button", { name: "Login" });
@@ -123,7 +123,7 @@ describe("Error validation", () => {
     });
 
     it("should toastify error for null email inputs after submit", async () => {
-        render(<Login />);
+        customRender(<Login />);
         const emailInput = screen.getByRole("textbox", { name: "Email Address" });
         const passwordInput = screen.getByLabelText(/password/i);
         const loginButton = screen.getByRole("button", { name: "Login" });
@@ -137,7 +137,7 @@ describe("Error validation", () => {
     });
 
     it("should toastify error for null password inputs after submit", async () => {
-        render(<Login />);
+        customRender(<Login />);
         const emailInput = screen.getByRole("textbox", { name: "Email Address" });
         const passwordInput = screen.getByLabelText(/password/i);
         const loginButton = screen.getByRole("button", { name: "Login" });
@@ -152,7 +152,7 @@ describe("Error validation", () => {
 
     it("should toastify error for invalid login", async () => {
         (axios.post as jest.Mock).mockRejectedValue(new Error("Async error"));
-        render(<Login />);
+        customRender(<Login />);
 
         fillUpAndSubmitForm();
 

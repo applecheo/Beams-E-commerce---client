@@ -1,5 +1,5 @@
 import ProductCard from "components/ProductCard";
-import { providerRender, render, screen, userEvent, waitFor } from "testUtils";
+import { customRender, providerRender, screen, userEvent, waitFor } from "testUtils";
 
 const mockNavigate = jest.fn();
 
@@ -10,7 +10,7 @@ jest.mock("react-router-dom", () => ({
 
 describe("ProductCard", () => {
     it("should render card images", () => {
-        render(<ProductCard _id={"12345678"} name={"test"} gender={"m"} images={["123"]} price={8} />);
+        customRender(<ProductCard _id={"12345678"} name={"test"} gender={"m"} images={["123"]} price={8} />);
         const image = screen.getByAltText("test");
         expect(image).toBeInTheDocument();
 
