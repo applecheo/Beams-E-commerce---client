@@ -25,7 +25,7 @@ export type TDisplayProduct = {
     size: string;
 };
 
-const ProductDetailsContext = createContext({} as TProductDetailsContext);
+export const ProductDetailsContext = createContext({} as TProductDetailsContext);
 
 export const useProductDetails = () => {
     return useContext(ProductDetailsContext);
