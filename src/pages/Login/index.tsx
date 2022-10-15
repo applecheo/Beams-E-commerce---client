@@ -7,7 +7,6 @@ import axios from "axios";
 import { useAuth } from "context/AuthProvider";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-const URL = process.env.REACT_APP_API_BASE_URL;
 
 const Login = () => {
     const navigate = useNavigate();
@@ -25,7 +24,7 @@ const Login = () => {
 
         onSubmit: async (values) => {
             try {
-                const res = await axios.post(`${URL}/login`, values, {
+                const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}login`, values, {
                     headers: { "Content-Type": "application/json" },
                 });
                 navigate("/");
