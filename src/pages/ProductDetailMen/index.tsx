@@ -30,14 +30,14 @@ const ProductDetailMen = () => {
             <div className="flex my-5 justify-around">
                 <div className="grid grid-cols-2 ">
                     {currentViewing?.images?.map((img) => (
-                        <img src={img} key={img} className="w-32 h-48 m-2" />
+                        <img src={img} key={img} className="w-48 h-64 m-2" />
                     ))}
                 </div>
                 <div className="flex flex-col">
-                    <div className="pl-20">
-                        <h1 className="text-2xl">{currentViewing.name}</h1>
-                        <p>${currentViewing.price}</p>
-                        <p>Size: {currentViewing.size}</p>
+                    <div className="">
+                        <h1 className="text-3xl">{currentViewing.name}</h1>
+                        <p className="text-2xl">${currentViewing.price}</p>
+                        <p className="text-xl">Size: {currentViewing.size}</p>
                         <p>
                             Quantity:
                             {
@@ -51,14 +51,14 @@ const ProductDetailMen = () => {
                         {id && (
                             <button
                                 onClick={() => addToCart(id)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-44"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56 my-1"
                             >
                                 Add To Cart
                             </button>
                         )}
 
                         {id && (
-                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl my-1 w-44">
+                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56">
                                 Add to WishList
                             </button>
                         )}

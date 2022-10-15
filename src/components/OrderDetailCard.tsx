@@ -8,7 +8,7 @@ const OrderDetailCard = ({ isView }: isView) => {
     return (
         <>
             {isView === true && (
-                <div className="w-72 border-2 border-black">
+                <div className="w-96 border-2 border-black">
                     <div className="p-1">
                         <h1 className="text-xl pl-1">Order status: {userViewOrder.status}</h1>
                         {userViewOrder.products.map((x) => (

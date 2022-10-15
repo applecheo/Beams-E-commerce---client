@@ -46,7 +46,7 @@ const Orders = () => {
                     <OrderDetailCard isView={isView} />
                 </div>
             ) : (
-                <h1>There is no orders in your account</h1>
+                <h1 className="text-2xl">There is no orders in your account</h1>
             )}
         </div>
     );

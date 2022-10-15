@@ -12,13 +12,13 @@ const Navbar = () => {
     return (
         <div className=" flex items-center justify-between border-b-2 px-32 border-black">
             <div>
-                <NavLink to={"/"} className=" text-2xl">
+                <NavLink to={"/"} className=" text-4xl">
                     Beams
                 </NavLink>
-                <NavLink to={"/men"} className="pl-5 text-s">
+                <NavLink to={"/men"} className="pl-5 text-base">
                     Men
                 </NavLink>
-                <NavLink to={"/women"} className="pl-3 text-s">
+                <NavLink to={"/women"} className="pl-3 text-base">
                     Women
                 </NavLink>
             </div>

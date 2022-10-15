@@ -42,15 +42,15 @@ const Login = () => {
     return (
         <>
             <div className="mx-32 flex justify-center">
-                <div className="border border-black w-56 text-sm my-10">
+                <div className="border border-black w-64 text-sm my-10">
                     <form onSubmit={formik.handleSubmit}>
                         <div className="flex flex-col items-center ">
-                            <h1 className="text-xl mt-3">Beams</h1>
-                            <p style={{ fontSize: "7px", width: "150px" }} className="leading-tight my-2">
+                            <h1 className="text-3xl mt-3">Beams</h1>
+                            <p className="leading-tight my-2 w-44 text-xs">
                                 Ensure you’re not losing out on any rewards & benefits. Login here.{" "}
                             </p>
 
-                            <div className="ml-3">
+                            <div className="ml-5 my-2">
                                 <label htmlFor="email">Email Address</label>
                                 <input
                                     id="email"
@@ -59,14 +59,14 @@ const Login = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.email}
-                                    className="border border-black pl-0.5 w-48"
+                                    className="border border-black pl-0.5 w-52"
                                 />
                                 {formik.touched.email && formik.errors.email ? (
                                     <div className="text-red-600 text-xs">{formik.errors.email}</div>
                                 ) : null}
                             </div>
 
-                            <div className="ml-3">
+                            <div className="ml-5">
                                 <label htmlFor="password">Password </label>
                                 <input
                                     type="password"
@@ -75,14 +75,14 @@ const Login = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.password}
-                                    className="border border-black pl-0.5 w-48"
+                                    className="border border-black pl-0.5 w-52"
                                 />
                                 {formik.touched.password && formik.errors.password ? (
                                     <div className="text-red-600 text-xs">{formik.errors.password}</div>
                                 ) : null}
                             </div>
 
-                            <button type="submit" className="bg-black text-white text-sm w-32 mt-4 p-0.5">
+                            <button type="submit" className="bg-black text-white text-base w-40 mt-4 p-1">
                                 Login
                             </button>
                             <p className=" text-xs my-2">
