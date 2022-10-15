@@ -25,7 +25,9 @@ const Login = () => {
 
         onSubmit: async (values) => {
             try {
-                const res = await axios.post(`${URL}/login`, values);
+                const res = await axios.post(`${URL}/login`, values, {
+                    headers: { "Content-Type": "application/json" },
+                });
                 navigate("/");
                 const token = res.data.token;
                 sessionStorage.setItem("token_key", token);
