@@ -26,7 +26,7 @@ const Orders = () => {
         }
     };
     return (
-        <div className="mx-32">
+        <div className="mx-96">
             {orderDetails ? (
                 <div className="flex justify-around my-5">
                     <div className="border-2 border-black">

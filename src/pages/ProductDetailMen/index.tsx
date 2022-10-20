@@ -26,7 +26,7 @@ const ProductDetailMen = () => {
         }
     }, []);
     return (
-        <div className="mx-32">
+        <div className="mx-96">
             <div className="flex my-5 justify-around">
                 <div className="grid grid-cols-2 ">
                     {currentViewing?.images?.map((img) => (

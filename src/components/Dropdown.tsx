@@ -14,7 +14,7 @@ const DropDown = () => {
     return (
         <>
             <div
-                className="absolute right-1 z-10 mt-3 w-28 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="relative top-14 right-24 z-10 mt-3 w-32 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu"
                 tabIndex={-1}
             >

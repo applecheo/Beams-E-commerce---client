@@ -10,7 +10,7 @@ const Navbar = () => {
     const { openCart } = useShoppingCart();
 
     return (
-        <div className=" flex items-center justify-between border-b-2 px-32 border-black">
+        <div className=" flex items-center justify-between border-b-2 px-96 py-1 border-black">
             <div>
                 <NavLink to={"/"} className=" text-4xl">
                     Beams
@@ -30,12 +30,12 @@ const Navbar = () => {
                     </svg>
                 </button>
                 <div
-                    className="relative inline-block text-left"
+                    className="relative inline-block text-left "
                     onMouseEnter={() => setOpen(true)}
                     onMouseLeave={() => setOpen(false)}
                 >
                     <div>
-                        <div className="w-5 m-4 ">
+                        <div className="w-5 ml-4 mr-2">
                             <svg
                                 height="24"
                                 viewBox="0 0 24 24"

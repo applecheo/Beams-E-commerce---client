@@ -17,7 +17,7 @@ const Profile = () => {
         }
     };
     return (
-        <div className="mx-32 flex justify-center  ">
+        <div className="mx-96 flex justify-center  ">
             <div className="flex flex-col border-2 border-black w-80 my-5">
                 <div className=" mt-0.5 p-2">
                     <h1 className="text-xl ">Profile</h1>
@@ -35,7 +35,7 @@ const Profile = () => {
                 </div>
                 <div className="p-2 leading-tight">
                     <p>Email</p>
-                    <input type="text" value={userData.email} className="w-36" />
+                    <input type="text" value={userData.email} className="w-36 pl-0.5" />
                 </div>
                 <div className="flex justify-center mt-2 mb-4">
                     {confirmDelete === false ? (

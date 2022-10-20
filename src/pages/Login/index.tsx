@@ -41,7 +41,7 @@ const Login = () => {
     });
     return (
         <>
-            <div className="mx-32 flex justify-center">
+            <div className="mx-96 flex justify-center">
                 <div className="border border-black w-64 text-sm my-10">
                     <form onSubmit={formik.handleSubmit}>
                         <div className="flex flex-col items-center ">
