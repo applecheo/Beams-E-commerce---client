@@ -32,7 +32,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: TAuthProviderProps) => {
     const [user, setUser] = useState("");
     const [userData, setUserData] = useState<TUserData>({} as TUserData);
-
     const updateUser = (id: string) => {
         setUser(id);
     };
@@ -44,7 +43,6 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     const updateWishlist = async (productId: string) => {
         const body = { userId: user };
         await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);
-
         if (userData.wishList.includes(productId) === false) {
             setUserData((prev) => {
                 return { ...prev, wishList: [...prev.wishList, productId] };
