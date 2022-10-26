@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import axios from "axios";
 
@@ -41,17 +42,21 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     };
 
     const updateWishlist = async (productId: string) => {
-        const body = { userId: user };
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);
-        if (userData.wishList.includes(productId) === false) {
-            setUserData((prev) => {
-                return { ...prev, wishList: [...prev.wishList, productId] };
-            });
+        if (user) {
+            const body = { userId: user };
+            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);
+            if (userData.wishList.includes(productId) === false) {
+                setUserData((prev) => {
+                    return { ...prev, wishList: [...prev.wishList, productId] };
+                });
+            } else {
+                setUserData((prev) => {
+                    const wishList = prev.wishList.filter((x) => x !== productId);
+                    return { ...prev, wishList: wishList };
+                });
+            }
         } else {
-            setUserData((prev) => {
-                const wishList = prev.wishList.filter((x) => x !== productId);
-                return { ...prev, wishList: wishList };
-            });
+            toast.error("Please Login");
         }
     };
     return (

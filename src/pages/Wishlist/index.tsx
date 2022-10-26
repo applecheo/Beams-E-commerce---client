@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
 import { useAuth } from "context/AuthProvider";
 import { TDisplayProduct, useProductDetails } from "context/ProductDetailsProvider";
 
 const Wishlist = () => {
     const { userData } = useAuth();
-    const { productData, viewProductHandler } = useProductDetails();
+    const { viewProductHandler } = useProductDetails();
     const [wishList, setWatchList] = useState<TDisplayProduct[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (userData) {
-            for (const wishList of userData.wishList) {
-                const product = productData.find((x) => x._id === wishList);
-                if (product) {
-                    setWatchList((prev) => {
-                        const allProducts = [...prev, product];
-                        const filterOutDuplicates = Array.from(new Set(allProducts));
-                        return filterOutDuplicates;
-                    });
-                }
-            }
-        }
+        const displayWishlist = async () => {
+            const { data } = await axios.get(
+                `${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${userData?._id}` as string
+            );
+            const wishListData = data.wishList;
+            const products = wishListData.filter((x: { isSoldOut: boolean }) => x.isSoldOut === false);
+            setWatchList(products);
+        };
+        displayWishlist();
     }, []);
+
     const navigateToProductDetailPage = (id: string) => {
         viewProductHandler(id);
         const productDetailLink = `/men/${id}`;
