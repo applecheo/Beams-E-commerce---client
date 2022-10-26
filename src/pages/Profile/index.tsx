@@ -26,16 +26,16 @@ const Profile = () => {
                 <div className="flex p-2 ">
                     <div className="leading-tight">
                         <p>First Name</p>
-                        <input type="text" value={userData.firstName} className="w-36" />
+                        <input type="text" defaultValue={userData.firstName} className="w-36" />
                     </div>
                     <div className=" leading-tight">
                         <p>Last Name</p>
-                        <input type="text" value={userData.lastName} className="w-36" />
+                        <input type="text" defaultValue={userData.lastName} className="w-36" />
                     </div>
                 </div>
                 <div className="p-2 leading-tight">
                     <p>Email</p>
-                    <input type="text" value={userData.email} className="w-36 pl-0.5" />
+                    <input type="text" defaultValue={userData.email} className="w-36 pl-0.5" />
                 </div>
                 <div className="flex justify-center mt-2 mb-4">
                     {confirmDelete === false ? (

@@ -11,6 +11,7 @@ type TProductDetailsContext = {
     viewProductHandler: (productId: string) => void;
     display: string;
     newArrivalData: TDisplayProduct[];
+    fetchNewArrival: () => void;
 };
 
 export type TDisplayProduct = {
@@ -54,11 +55,12 @@ export const ProductDetailsProvider = ({ children }: TProductDetailsProviderProp
 
     useEffect(() => {
         fetchAllProduct();
-        fetchNewArrival();
-    }, []);
+    }, [display]);
 
     return (
-        <ProductDetailsContext.Provider value={{ productData, viewProductHandler, display, newArrivalData }}>
+        <ProductDetailsContext.Provider
+            value={{ productData, viewProductHandler, display, newArrivalData, fetchNewArrival }}
+        >
             {children}
         </ProductDetailsContext.Provider>
     );

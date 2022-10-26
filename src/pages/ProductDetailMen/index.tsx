@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import axios from "axios";
+import { useAuth } from "context/AuthProvider";
 import { TDisplayProduct, useProductDetails } from "context/ProductDetailsProvider";
 import { useShoppingCart } from "context/ShoppingCartProvider";
 
 const ProductDetailMen = () => {
     const { productData, display } = useProductDetails();
+    const { updateWishlist } = useAuth();
     const { addToCart } = useShoppingCart();
     const [currentViewing, setCurrentViewing] = useState<TDisplayProduct>({} as TDisplayProduct);
     const { id } = useParams();
+    const { userData } = useAuth();
 
     const displayDetail = async () => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/men/${id}` as string);
@@ -27,19 +30,19 @@ const ProductDetailMen = () => {
     }, []);
     return (
         <div className="mx-96">
-            <div className="flex my-5 justify-around">
+            <div className="my-16 flex justify-around">
                 <div className="grid grid-cols-2 ">
                     {currentViewing?.images?.map((img) => (
-                        <img src={img} key={img} className="w-48 h-64 m-2" />
+                        <img src={img} key={img} className="w-48 h-56 p-1" />
                     ))}
                 </div>
                 <div className="flex flex-col">
-                    <div className="">
+                    <div className="w-80">
                         <h1 className="text-3xl">{currentViewing.name}</h1>
                         <p className="text-2xl">${currentViewing.price}</p>
                         <p className="text-xl">Size: {currentViewing.size}</p>
                         <p>
-                            Quantity:
+                            Qty:
                             {
                                 productData
                                     .filter((product) => product.name === currentViewing.name)
@@ -57,9 +60,19 @@ const ProductDetailMen = () => {
                             </button>
                         )}
 
-                        {id && (
-                            <button className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56">
-                                Add to WishList
+                        {id && userData?.wishList?.includes(currentViewing?._id) === true ? (
+                            <button
+                                onClick={() => updateWishlist(currentViewing?._id)}
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56"
+                            >
+                                Remove from Wishlist
+                            </button>
+                        ) : (
+                            <button
+                                onClick={() => updateWishlist(currentViewing?._id)}
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56"
+                            >
+                                Add to Wishlist
                             </button>
                         )}
                     </div>

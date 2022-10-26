@@ -1,11 +1,14 @@
+import { useEffect } from "react";
+
 import ProductCard from "components/ProductCard";
 import { MEN_COVER_PICTURE_URL, WOMEN_COVER_PICTURE_URL } from "constants/index";
 import { useProductDetails } from "context/ProductDetailsProvider";
 
 const Home = () => {
-    const { newArrivalData } = useProductDetails();
-    //use new arrival data
-
+    const { newArrivalData, fetchNewArrival } = useProductDetails();
+    useEffect(() => {
+        fetchNewArrival();
+    }, []);
     return (
         <div className="mx-96">
             <div
