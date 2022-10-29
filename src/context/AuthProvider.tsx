@@ -7,9 +7,7 @@ type TAuthProviderProps = {
     children: ReactNode;
 };
 
-type TAuthContext = {
-    updateUser: (id: string) => void;
-    user: string;
+export type TAuthContext = {
     userData: TUserData;
     updateUserData: (data: TUserData) => void;
     updateWishlist: (productId: string) => void;
@@ -24,26 +22,22 @@ type TUserData = {
     _id: string;
 };
 
-const AuthContext = createContext({} as TAuthContext);
+export const AuthContext = createContext({} as TAuthContext);
 
 export const useAuth = () => {
     return useContext(AuthContext);
 };
 
 export const AuthProvider = ({ children }: TAuthProviderProps) => {
-    const [user, setUser] = useState("");
     const [userData, setUserData] = useState<TUserData>({} as TUserData);
-    const updateUser = (id: string) => {
-        setUser(id);
-    };
 
     const updateUserData = (data: TUserData) => {
         setUserData(data);
     };
 
     const updateWishlist = async (productId: string) => {
-        if (user) {
-            const body = { userId: user };
+        if (userData) {
+            const body = { userId: userData._id };
             await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);
             if (userData.wishList.includes(productId) === false) {
                 setUserData((prev) => {
@@ -62,8 +56,6 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     return (
         <AuthContext.Provider
             value={{
-                updateUser,
-                user,
                 userData,
                 updateUserData,
                 updateWishlist,

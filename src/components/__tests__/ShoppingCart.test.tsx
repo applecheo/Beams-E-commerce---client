@@ -1,8 +1,38 @@
 import { MemoryRouter } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import ShoppingCart from "components/ShoppingCart";
-import { ShoppingCartContext, TShoppingCartContext } from "context/ShoppingCartProvider";
-import { render, screen } from "testUtils";
+import AuthContext from "context/AuthProvider";
+import { OrderDetailsContext } from "context/OrderDetailsProvider";
+import { ProductDetailsContext } from "context/ProductDetailsProvider";
+import { ShoppingCartContext } from "context/ShoppingCartProvider";
+import {
+    authContextValue,
+    orderDetailContextValue,
+    productDetailContextValue,
+    shoppingCartContextValue,
+} from "service/mockContextData";
+import { render, screen, userEvent, waitFor } from "testUtils";
+
+const mockNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+    ...jest.requireActual("react-router-dom"),
+    useNavigate: () => mockNavigate,
+}));
+
+const toastSuccessSpy = jest.spyOn(toast, "success");
+const toastErrorSpy = jest.spyOn(toast, "error");
+
+beforeEach(() => {
+    const mockIntersectionObserver = jest.fn();
+    mockIntersectionObserver.mockReturnValue({
+        observe: () => null,
+        unobserve: () => null,
+        disconnect: () => null,
+    });
+    window.IntersectionObserver = mockIntersectionObserver;
+});
 
 describe("Shopping Cart", () => {
     it("should render shopping cart", () => {
@@ -13,32 +43,85 @@ describe("Shopping Cart", () => {
 
         const closePanel = screen.getByText("Close panel");
         expect(closePanel).toBeInTheDocument();
+
+        const checkoutButton = screen.getByRole("button", { name: "Checkout" });
+        expect(checkoutButton).toBeInTheDocument();
     });
 });
 
-const cartItemsData = [
-    {
-        id: "6343946af1f4f6889b0d893f",
-        quantity: 1,
-    },
-];
+describe("checkout", () => {
+    it("should navigate to checkout page when there is product in cart and user is logged in", async () => {
+        renderLayout();
 
-const shoppingCartContextValue: TShoppingCartContext = {
-    openCart: jest.fn(),
-    closeCart: jest.fn(),
-    isOpen: true,
-    addToCart: jest.fn(),
-    cartItems: cartItemsData,
-    removeFromCart: jest.fn(),
-    sendOrderDetail: jest.fn(),
-};
+        checkout();
+
+        await waitFor(() => expect(mockNavigate).toBeCalledWith("/checkout"));
+    });
+
+    it("should toastify success upon successful checkout", async () => {
+        renderLayout();
+
+        checkout();
+
+        await waitFor(() => expect(toastSuccessSpy).toHaveBeenCalledWith("Order haven been placed"));
+    });
+
+    it("should toastify error if there is nothing in cart upon checkout", async () => {
+        render(
+            <MemoryRouter>
+                <ProductDetailsContext.Provider value={productDetailContextValue}>
+                    <OrderDetailsContext.Provider value={orderDetailContextValue}>
+                        <ShoppingCartContext.Provider value={shoppingCartContextValue}>
+                            <ShoppingCart />
+                        </ShoppingCartContext.Provider>
+                    </OrderDetailsContext.Provider>
+                </ProductDetailsContext.Provider>
+            </MemoryRouter>
+        );
+
+        checkout();
+
+        await waitFor(() => expect(toastErrorSpy).toHaveBeenCalledWith("Please Login"));
+    });
+
+    it("should toastify error if there is nothing in cart upon checkout", async () => {
+        render(
+            <MemoryRouter>
+                <AuthContext.Provider value={authContextValue}>
+                    <ProductDetailsContext.Provider value={productDetailContextValue}>
+                        <OrderDetailsContext.Provider value={orderDetailContextValue}>
+                            <ShoppingCartContext.Provider value={{ ...shoppingCartContextValue, cartItems: [] }}>
+                                <ShoppingCart />
+                            </ShoppingCartContext.Provider>
+                        </OrderDetailsContext.Provider>
+                    </ProductDetailsContext.Provider>
+                </AuthContext.Provider>
+            </MemoryRouter>
+        );
+
+        checkout();
+
+        await waitFor(() => expect(toastErrorSpy).toHaveBeenCalledWith("Nothing in your cart"));
+    });
+});
 
 const renderLayout = () => {
     render(
         <MemoryRouter>
-            <ShoppingCartContext.Provider value={shoppingCartContextValue}>
-                <ShoppingCart />
-            </ShoppingCartContext.Provider>
+            <AuthContext.Provider value={authContextValue}>
+                <ProductDetailsContext.Provider value={productDetailContextValue}>
+                    <OrderDetailsContext.Provider value={orderDetailContextValue}>
+                        <ShoppingCartContext.Provider value={shoppingCartContextValue}>
+                            <ShoppingCart />
+                        </ShoppingCartContext.Provider>
+                    </OrderDetailsContext.Provider>
+                </ProductDetailsContext.Provider>
+            </AuthContext.Provider>
         </MemoryRouter>
     );
+};
+
+const checkout = () => {
+    const checkoutButton = screen.getByRole("button", { name: "Checkout" });
+    userEvent.click(checkoutButton);
 };

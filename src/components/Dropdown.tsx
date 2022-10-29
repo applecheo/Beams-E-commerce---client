@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "context/AuthProvider";
 
 const DropDown = () => {
-    const { user } = useAuth();
-    const linkToOrder = `/account/orders/${user}`;
+    const { userData } = useAuth();
+    const linkToOrder = `/account/orders/${userData._id}`;
     const navigate = useNavigate();
     const signOut = () => {
         sessionStorage.removeItem("token_key");
@@ -19,7 +19,7 @@ const DropDown = () => {
                 tabIndex={-1}
             >
                 <div className="py-2 flex flex-col justify-center items-center" role="none">
-                    {user ? (
+                    {userData._id ? (
                         <Link
                             to="/account/profile"
                             className="text-black block  text-sm"
@@ -35,7 +35,7 @@ const DropDown = () => {
                         </Link>
                     )}
 
-                    {user && (
+                    {userData._id && (
                         <Link
                             to={linkToOrder}
                             className="text-black block text-sm"
@@ -46,7 +46,7 @@ const DropDown = () => {
                             Orders
                         </Link>
                     )}
-                    {user ? (
+                    {userData._id ? (
                         <Link
                             to="/account/wishlist"
                             className="text-black block  text-sm"
@@ -62,7 +62,7 @@ const DropDown = () => {
                         </Link>
                     )}
 
-                    {user ? (
+                    {userData._id ? (
                         <button
                             type="submit"
                             className="text-black block  text-sm"

@@ -10,11 +10,11 @@ type TProduct = {
 const Orders = () => {
     const { orderDetails, getOrderDetails, getUserViewOrder, userViewOrder } = useOrderDetails();
 
-    const { user } = useAuth();
+    const { userData } = useAuth();
     const [isView, setIsView] = useState(false);
     useEffect(() => {
-        if (user) {
-            getOrderDetails(user);
+        if (userData) {
+            getOrderDetails(userData._id);
         }
     }, []);
 
@@ -32,7 +32,7 @@ const Orders = () => {
                     <div className="border-2 border-black">
                         <h1 className="text-xl px-2 mb-1 ">Orders</h1>
                         {orderDetails?.orders?.map((product: TProduct) => (
-                            <div key={product?._id} className="px-1 m-1 border-2 border-black">
+                            <div key={product?._id} className="px-1 m-1 border-2 border-black ">
                                 <li
                                     onMouseOver={() => fetchUserOrder(product?._id)}
                                     onClick={() => setIsView(true)}

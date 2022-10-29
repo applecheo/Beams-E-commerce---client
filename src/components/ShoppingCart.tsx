@@ -12,21 +12,21 @@ import CartItem from "./CartItem";
 
 const ShoppingCart = () => {
     const { closeCart, isOpen, cartItems, sendOrderDetail } = useShoppingCart();
-    const { user } = useAuth();
+    const { userData } = useAuth();
     const { productData } = useProductDetails();
     const navigate = useNavigate();
 
     const checkout = () => {
         const productIds = cartItems.map((product) => product.id);
         const data = {
-            orderedBy: user,
+            orderedBy: userData?._id,
             products: productIds,
         };
-        if (user && data.products.length !== 0) {
+        if (userData?._id && data.products.length !== 0) {
             navigate("/checkout");
             sendOrderDetail(data);
             return toast.success("Order haven been placed");
-        } else if (!user) {
+        } else if (!userData?._id) {
             closeCart();
             navigate("/login");
             return toast.error("Please Login");
@@ -36,12 +36,6 @@ const ShoppingCart = () => {
         }
     };
 
-    {
-        cartItems?.reduce((total, cartItems) => {
-            const product = productData?.find((product) => product?._id === cartItems?.id);
-            return total + (product?.price || 0);
-        }, 0);
-    }
     return (
         <Transition.Root show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeCart}>

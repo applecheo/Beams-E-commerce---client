@@ -10,7 +10,7 @@ import * as Yup from "yup";
 
 const Login = () => {
     const navigate = useNavigate();
-    const { updateUser, updateUserData } = useAuth();
+    const { updateUserData } = useAuth();
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -31,7 +31,6 @@ const Login = () => {
                 const token = res.data.token;
                 sessionStorage.setItem("token_key", token);
                 updateUserData(res.data.user);
-                updateUser(res.data.user._id);
 
                 return toast.success("Login Successful");
             } catch (error) {

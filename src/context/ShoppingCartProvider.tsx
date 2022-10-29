@@ -77,7 +77,7 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data);
         const orderId = res.data._id;
         getOrderId(orderId);
-        updateUserOrder(orderId); //update user order user
+        updateUserOrder(orderId);
     };
     return (
         <ShoppingCartContext.Provider

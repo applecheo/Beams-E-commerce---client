@@ -6,7 +6,7 @@ type TProductDetailsProviderProps = {
     children: ReactNode;
 };
 
-type TProductDetailsContext = {
+export type TProductDetailsContext = {
     productData: TDisplayProduct[];
     viewProductHandler: (productId: string) => void;
     display: string;
