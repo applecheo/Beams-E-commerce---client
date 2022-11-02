@@ -1,30 +1,32 @@
-import { useOrderDetails } from "context/OrderDetailsProvider";
+import { TProduct, useOrderDetails } from "context/OrderDetailsProvider";
 
-type isView = {
-    isView: boolean;
+export type TisView = {
+    isView: TProduct;
 };
-const OrderDetailCard = ({ isView }: isView) => {
+
+const OrderDetailCard = ({ isView }: TisView) => {
     const { userViewOrder } = useOrderDetails();
+
     return (
         <>
-            {isView === true && (
+            {isView && (
                 <div className="w-96 border-2 border-black">
                     <div className="p-1">
                         <h1 className="text-xl pl-1">Order status: {userViewOrder.status}</h1>
-                        {userViewOrder.products.map((x) => (
-                            <div key={x._id} className="m-1 p-1 border-t-2 border-black flex">
-                                <img
-                                    src={x.images[0]}
-                                    alt={x.images[0]}
-                                    className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
-                                />
-                                <div className="flex flex-col text-xs pl-2">
-                                    <p className="text-sm leading-tight"> {x.name}</p>
-                                    <p className="">Price: ${x.price}</p>
-                                    <p className="">Size: {x.size}</p>
-                                </div>
+
+                        <div className="m-1 p-1 border-t-2 border-black flex">
+                            <img
+                                src={isView?.images?.[0]}
+                                alt={isView?.images?.[0]}
+                                className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
+                            />
+
+                            <div className="flex flex-col text-xs pl-2">
+                                <p className="text-sm leading-tight"> {isView.name}</p>
+                                <p className="">Price: ${isView.price}</p>
+                                <p className="">Size: {isView.size}</p>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             )}

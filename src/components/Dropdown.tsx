@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "context/AuthProvider";
 
 const DropDown = () => {
-    const { userData } = useAuth();
+    const { userData, updateUserData } = useAuth();
     const linkToOrder = `/account/orders/${userData._id}`;
     const navigate = useNavigate();
     const signOut = () => {
         sessionStorage.removeItem("token_key");
         navigate("/");
-        window.location.reload();
+        const resetUser = { email: "", firstName: "", gender: "", lastName: "", wishList: [], _id: "" };
+        updateUserData(resetUser);
     };
     return (
         <>

@@ -18,7 +18,7 @@ export type TOrderDetailsContext = {
     getUserViewOrder: (id: string) => void;
 };
 
-type TOrderDetail = {
+export type TOrderDetail = {
     orders: any;
     status: string;
     _id: string;
@@ -32,7 +32,7 @@ export type TOrder = {
     products: TProduct[];
 };
 
-type TProduct = {
+export type TProduct = {
     _id: string;
     name: string;
     price: number;
@@ -59,7 +59,6 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     };
     const getOrderDetails = async (userId: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
-        console.log(res.data);
         setOrderDetails(res.data);
     };
     const updateUserOrder = async (orderId: string) => {

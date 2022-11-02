@@ -13,11 +13,11 @@ const Wishlist = () => {
 
     useEffect(() => {
         const displayWishlist = async () => {
-            const { data } = await axios.get(
+            const res = await axios.get(
                 `${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${userData?._id}` as string
             );
-            const wishListData = data.wishList;
-            const products = wishListData.filter((x: { isSoldOut: boolean }) => x.isSoldOut === false);
+            const wishListData = res?.data?.wishList;
+            const products = wishListData?.filter((x: { isSoldOut: boolean }) => x?.isSoldOut === false);
             setWatchList(products);
         };
         displayWishlist();

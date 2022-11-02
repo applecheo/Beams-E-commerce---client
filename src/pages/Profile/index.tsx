@@ -5,15 +5,16 @@ import axios from "axios";
 import { useAuth } from "context/AuthProvider";
 
 const Profile = () => {
-    const { userData } = useAuth();
+    const { userData, updateUserData } = useAuth();
     const [confirmDelete, setConfirmDelete] = useState(false);
     const navigate = useNavigate();
     const deleteUser = async () => {
         if (confirmDelete === true && userData) {
-            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData._id}` as string);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData?._id}` as string);
             navigate("/");
             sessionStorage.removeItem("token_key");
-            window.location.reload();
+            const resetUser = { email: "", firstName: "", gender: "", lastName: "", wishList: [], _id: "" };
+            updateUserData(resetUser);
         }
     };
     return (

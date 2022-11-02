@@ -8,10 +8,7 @@ import Orders from "..";
 jest.mock("axios");
 
 describe("Orders page", () => {
-    it("should render order page", () => {
-        // (axios.get as jest.Mock).mockResolvedValue({
-        //     data: mockOrderData,
-        // });
+    it("should render order page", async () => {
         render(
             <AuthContext.Provider value={authContextValue}>
                 <OrderDetailsContext.Provider value={orderDetailContextValue}>

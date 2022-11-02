@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     };
 
     const updateWishlist = async (productId: string) => {
+        console.log("body");
         if (userData) {
             const body = { userId: userData._id };
             await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);

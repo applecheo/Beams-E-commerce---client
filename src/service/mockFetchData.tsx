@@ -22,7 +22,7 @@ export const mockUserData = {
         firstName: "first name",
         gender: "gender",
         lastName: "last name",
-        watchList: [],
+        wishList: [],
         _id: "userid",
     },
 };
@@ -61,3 +61,27 @@ export const mockOrderData = [
         _id: "userid",
     },
 ];
+
+export const mockWishListData = {
+    email: "test@email.com",
+    firstName: "first name",
+    gender: "gender",
+    lastName: "last name",
+    wishList: [
+        {
+            _id: "6343939ef1f4f6889b0d8930",
+            name: "COLLUSION fantasy print T-shirt in black",
+            price: 26.9,
+            category: "T-shirts",
+            gender: "Men",
+            images: ["https://images.asos-media.com/products/collusion-fantasy-print-t-shirt-in-black/"],
+            size: "S",
+            createdAt: "2022-10-10T03:38:06.158Z",
+            updatedAt: "2022-10-10T03:38:06.158Z",
+            __v: 0,
+            isNewArrival: true,
+            isSoldOut: false,
+        },
+    ],
+    _id: "userid",
+};

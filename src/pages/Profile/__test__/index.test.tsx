@@ -1,11 +1,15 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MemoryRouter } from "react-router-dom";
 
 import axios from "axios";
+import AuthContext from "context/AuthProvider";
+import { authContextValue } from "service/mockContextData";
 import { mockProductData } from "service/mockFetchData";
 import { providerRender, screen, userEvent, waitFor } from "testUtils";
 
 import Profile from "..";
+
+const axiosDeleteSpy = jest.spyOn(axios, "delete");
 
 const mockNavigate = jest.fn();
 jest.mock("axios");
@@ -33,24 +37,22 @@ describe("Profile page", () => {
         await waitFor(() => expect(confirmDeleteButton).toBeInTheDocument());
     });
 
-    it("should execute setConfirmDelete when onMouseLeave", async () => {
-        const setStateMock = jest.fn();
-        const useStateMock: any = (useState: false) => [useState, setStateMock];
-        jest.spyOn(React, "useState").mockImplementation(useStateMock);
-
+    it("should delete user when confirm button is clicked", async () => {
         providerRender(
             <MemoryRouter>
-                <Profile />
+                <AuthContext.Provider value={authContextValue}>
+                    <Profile />
+                </AuthContext.Provider>
             </MemoryRouter>
         );
-
         const deleteButton = screen.getByRole("button", { name: "Delete my account" });
         expect(deleteButton).toBeInTheDocument();
 
         userEvent.click(deleteButton);
+        userEvent.click(deleteButton);
 
-        userEvent.hover(document.body);
-
-        await waitFor(() => expect(setStateMock).toHaveBeenCalledWith(true));
+        await waitFor(() =>
+            expect(axiosDeleteSpy).toHaveBeenCalledWith(expect.stringContaining("/account/profile/userid"))
+        );
     });
 });

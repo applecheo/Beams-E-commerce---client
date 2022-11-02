@@ -1,7 +1,9 @@
+import * as router from "react-router";
 import { MemoryRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import axios from "axios";
+import { mockProductData, mockUserData } from "service/mockFetchData";
 import { customRender, providerRender, screen, userEvent, waitFor } from "testUtils";
 
 import Login from "..";
@@ -11,10 +13,6 @@ const toastSuccessSpy = jest.spyOn(toast, "success");
 const mockNavigate = jest.fn();
 
 jest.mock("axios");
-
-import * as router from "react-router";
-
-import { mockProductData, mockUserData } from "service/mockFetchData";
 
 beforeEach(() => {
     jest.spyOn(router, "useNavigate").mockImplementation(() => mockNavigate);

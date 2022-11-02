@@ -33,20 +33,20 @@ const ProductDetailMen = () => {
             <div className="my-16 flex justify-around">
                 <div className="grid grid-cols-2 ">
                     {currentViewing?.images?.map((img) => (
-                        <img src={img} key={img} className="w-48 h-56 p-1" />
+                        <img src={img} key={img} alt={img} className="w-48 h-56 p-1" />
                     ))}
                 </div>
                 <div className="flex flex-col">
                     <div className="w-80">
-                        <h1 className="text-3xl">{currentViewing.name}</h1>
-                        <p className="text-2xl">${currentViewing.price}</p>
-                        <p className="text-xl">Size: {currentViewing.size}</p>
+                        <h1 className="text-3xl">{currentViewing?.name}</h1>
+                        <p className="text-2xl">${currentViewing?.price}</p>
+                        <p className="text-xl">Size: {currentViewing?.size}</p>
                         <p>
                             Qty:
                             {
                                 productData
-                                    .filter((product) => product.name === currentViewing.name)
-                                    .filter((productSize) => productSize.size === currentViewing.size).length
+                                    .filter((product) => product.name === currentViewing?.name)
+                                    .filter((productSize) => productSize.size === currentViewing?.size).length
                             }
                         </p>
                     </div>

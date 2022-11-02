@@ -37,7 +37,7 @@ const productData = [
 export const productDetailContextValue: TProductDetailsContext = {
     productData: productData,
     viewProductHandler: jest.fn(),
-    display: "display",
+    display: "id",
     newArrivalData: [],
     fetchNewArrival: jest.fn(),
 };
