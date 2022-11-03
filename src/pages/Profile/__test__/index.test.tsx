@@ -36,8 +36,8 @@ describe("Profile page", () => {
         const confirmDeleteButton = await screen.findByRole("button", { name: "Confirm" });
         await waitFor(() => expect(confirmDeleteButton).toBeInTheDocument());
     });
-
     it("should delete user when confirm button is clicked", async () => {
+        const token = `Bearer ${window.sessionStorage.getItem("token_key")}`;
         providerRender(
             <MemoryRouter>
                 <AuthContext.Provider value={authContextValue}>
@@ -52,7 +52,9 @@ describe("Profile page", () => {
         userEvent.click(deleteButton);
 
         await waitFor(() =>
-            expect(axiosDeleteSpy).toHaveBeenCalledWith(expect.stringContaining("/account/profile/userid"))
+            expect(axiosDeleteSpy).toHaveBeenCalledWith(expect.stringContaining("/account/profile/userid"), {
+                headers: { Authorization: token },
+            })
         );
     });
 });

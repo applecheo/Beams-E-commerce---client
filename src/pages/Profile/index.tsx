@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
-import { TOKEN } from "constants/index";
 import { useAuth } from "context/AuthProvider";
 
 const Profile = () => {
@@ -10,6 +9,7 @@ const Profile = () => {
     const [confirmDelete, setConfirmDelete] = useState(false);
     const navigate = useNavigate();
     const deleteUser = async () => {
+        const TOKEN = sessionStorage.getItem("token_key");
         if (confirmDelete === true && userData) {
             await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData?._id}` as string, {
                 headers: {

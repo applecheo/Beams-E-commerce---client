@@ -60,11 +60,15 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     const getOrderDetails = async (userId: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
         setOrderDetails(res.data);
-        console.log(res.data);
     };
     const updateUserOrder = async (orderId: string) => {
+        const TOKEN = sessionStorage.getItem("token_key");
         const body = { body: orderId };
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body);
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body, {
+            headers: {
+                Authorization: `Bearer ${TOKEN}`,
+            },
+        });
     };
 
     const getUserViewOrder = async (id: string) => {
