@@ -4,15 +4,20 @@ import OrderDetailCard from "components/OrderDetailCard";
 import { useAuth } from "context/AuthProvider";
 import { TProduct, useOrderDetails } from "context/OrderDetailsProvider";
 
-type TProductId = {
+type TOrderId = {
     _id: string;
+};
+
+type TDisplayOrder = {
+    products: TProduct[];
+    status: string;
 };
 
 const Orders = () => {
     const { orderDetails, getOrderDetails, getUserViewOrder } = useOrderDetails();
 
     const { userData } = useAuth();
-    const [isView, setIsView] = useState<TProduct>({} as TProduct);
+    const [isView, setIsView] = useState<TDisplayOrder>({} as TDisplayOrder);
 
     useEffect(() => {
         if (userData) {
@@ -20,31 +25,36 @@ const Orders = () => {
         }
     }, []);
 
-    const updateView = (productId: string) => {
-        const { products } = orderDetails.orders.find((x: TProductId) => x._id === productId);
-        setIsView(products[0]);
-        getUserViewOrder(productId);
+    const updateView = (orderId: string) => {
+        const displayOrder = orderDetails.orders.find((x: TOrderId) => x._id === orderId);
+        setIsView(displayOrder);
+        getUserViewOrder(orderId);
     };
 
     return (
         <div className="mx-96">
             {orderDetails?.orders?.length !== 0 ? (
-                <div className="flex justify-between my-5 items-start">
+                <div className="flex justify-around my-5 items-start">
                     <div className="border-2 border-black">
                         <h1 className="text-xl px-2 mb-1 ">Orders</h1>
 
-                        {orderDetails?.orders?.map((product: TProductId) => (
-                            <div key={product?._id} className="px-1 m-1 border-2 border-black ">
+                        {orderDetails?.orders?.map((order: TOrderId) => (
+                            <div key={order?._id} className="px-1 m-1 border-2 border-black ">
                                 <li
-                                    onClick={() => updateView(product?._id)}
+                                    onClick={() => updateView(order?._id)}
                                     className="cursor-pointer list-disc leading-tight pr-1 "
                                 >
-                                    {product._id}
+                                    {order._id}
                                 </li>
                             </div>
                         ))}
                     </div>
-                    {isView._id && <OrderDetailCard isView={isView} />}
+                    <div className="border-2 border-black w-96">
+                        <h1 className="text-xl pl-1">Order status: {isView?.status}</h1>
+                        {isView?.products?.map((product) => (
+                            <OrderDetailCard key={product._id} {...product} />
+                        ))}
+                    </div>
                 </div>
             ) : (
                 <h1 className="text-2xl text-center mt-10">There are no orders in your account</h1>

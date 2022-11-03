@@ -60,6 +60,7 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     const getOrderDetails = async (userId: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
         setOrderDetails(res.data);
+        console.log(res.data);
     };
     const updateUserOrder = async (orderId: string) => {
         const body = { body: orderId };
