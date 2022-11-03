@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import { TOKEN } from "constants/index";
 import { useAuth } from "context/AuthProvider";
 
 const Profile = () => {
@@ -10,7 +11,11 @@ const Profile = () => {
     const navigate = useNavigate();
     const deleteUser = async () => {
         if (confirmDelete === true && userData) {
-            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData?._id}` as string);
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData?._id}` as string, {
+                headers: {
+                    Authorization: `Bearer ${TOKEN}`,
+                },
+            });
             navigate("/");
             sessionStorage.removeItem("token_key");
             const resetUser = { email: "", firstName: "", gender: "", lastName: "", wishList: [], _id: "" };
