@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 import axios from "axios";
+import { TOKEN } from "constants/index";
 
 type TAuthProviderProps = {
     children: ReactNode;
@@ -37,9 +38,15 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
 
     const updateWishlist = async (productId: string) => {
         console.log("body");
+
         if (userData) {
+            console.log(TOKEN);
             const body = { userId: userData._id };
-            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body);
+            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body, {
+                headers: {
+                    Authorization: `Bearer ${TOKEN}`,
+                },
+            });
             if (userData.wishList.includes(productId) === false) {
                 setUserData((prev) => {
                     return { ...prev, wishList: [...prev.wishList, productId] };
