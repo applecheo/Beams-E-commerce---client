@@ -5,10 +5,12 @@ import { MEN_COVER_PICTURE_URL, WOMEN_COVER_PICTURE_URL } from "constants/index"
 import { useProductDetails } from "context/ProductDetailsProvider";
 
 const Home = () => {
-    const { newArrivalData, fetchNewArrival } = useProductDetails();
+    const { fetchNewArrival, displayNewArrivalData, prevSlide, nextSlide } = useProductDetails();
+
     useEffect(() => {
         fetchNewArrival();
     }, []);
+
     return (
         <div className="mx-96">
             <div
@@ -27,9 +29,19 @@ const Home = () => {
                 />
             </div>
             <div>
-                <h1 className="text-lg my-1 ml-1 font-medium">NEW ARRIVALS</h1>
+                <div className="flex justify-between items-center">
+                    <h1 className="text-lg my-1 ml-1 font-medium">NEW ARRIVALS</h1>
+                    <div className="flex">
+                        <button className="mx-1" onClick={prevSlide}>
+                            ⇦
+                        </button>
+                        <button className="mx-1" onClick={nextSlide}>
+                            ⇨
+                        </button>
+                    </div>
+                </div>
                 <div className="flex ">
-                    {newArrivalData?.map((product) => (
+                    {displayNewArrivalData?.map((product) => (
                         <ProductCard key={product._id} {...product} />
                     ))}
                 </div>

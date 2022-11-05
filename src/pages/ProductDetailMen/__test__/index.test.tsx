@@ -1,6 +1,7 @@
 import { MemoryRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import axios from "axios";
 import AuthContext from "context/AuthProvider";
 import { ProductDetailsContext } from "context/ProductDetailsProvider";
 import { authContextValue, productDetailContextValue } from "service/mockContextData";
@@ -9,6 +10,7 @@ import { providerRender, render, screen, userEvent, waitFor } from "testUtils";
 import ProductDetailMen from "..";
 
 const toastSuccessSpy = jest.spyOn(toast, "success");
+const axiosPutSpy = jest.spyOn(axios, "put");
 
 jest.mock("axios");
 
@@ -52,6 +54,8 @@ describe("Product Detail Men page", () => {
     });
 
     it("should add product to wishlist upon click", async () => {
+        // const token = `Bearer ${window.sessionStorage.getItem("token_key")}`;
+
         renderLayout();
 
         const addToWishListButton = screen.getByRole("button", { name: "Add to Wishlist" });
@@ -59,9 +63,13 @@ describe("Product Detail Men page", () => {
         userEvent.click(addToWishListButton);
 
         // await waitFor(() =>
-        //     expect(axios.put).toHaveBeenCalledWith(expect.stringContaining("/account/wishlist/id"), {
-        //         userId: "userid",
-        //     })
+        //     expect(axiosPutSpy).toHaveBeenCalledWith(
+        //         expect.stringContaining("/account/wishlist/id"),
+        //         {
+        //             userId: "userid",
+        //         },
+        //         { headers: { Authorization: token } }
+        //     )
         // );
     });
 });

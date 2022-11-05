@@ -31,6 +31,7 @@ const productData = [
         price: 8,
         isNewArrival: true,
         size: "size",
+        createdAt: "",
     },
 ];
 
@@ -40,6 +41,9 @@ export const productDetailContextValue: TProductDetailsContext = {
     display: "id",
     newArrivalData: [],
     fetchNewArrival: jest.fn(),
+    prevSlide: jest.fn(),
+    nextSlide: jest.fn(),
+    displayNewArrivalData: productData,
 };
 
 const userViewOrderData = {
