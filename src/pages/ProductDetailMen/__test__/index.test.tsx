@@ -2,9 +2,9 @@ import { MemoryRouter } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import axios from "axios";
-import AuthContext from "context/AuthProvider";
+import AuthContext, { TAuthContext } from "context/AuthProvider";
 import { ProductDetailsContext } from "context/ProductDetailsProvider";
-import { authContextValue, productDetailContextValue } from "service/mockContextData";
+import { productDetailContextValue, userData } from "service/mockContextData";
 import { providerRender, render, screen, userEvent, waitFor } from "testUtils";
 
 import ProductDetailMen from "..";
@@ -62,6 +62,7 @@ describe("Product Detail Men page", () => {
 
         userEvent.click(addToWishListButton);
 
+        await waitFor(() => expect(updateWishlistMock).toHaveBeenCalled);
         // await waitFor(() =>
         //     expect(axiosPutSpy).toHaveBeenCalledWith(
         //         expect.stringContaining("/account/wishlist/id"),
@@ -73,6 +74,14 @@ describe("Product Detail Men page", () => {
         // );
     });
 });
+
+const updateWishlistMock = jest.fn();
+
+const authContextValue: TAuthContext = {
+    userData: userData,
+    updateUserData: jest.fn(),
+    updateWishlist: updateWishlistMock,
+};
 
 const renderLayout = () => {
     render(

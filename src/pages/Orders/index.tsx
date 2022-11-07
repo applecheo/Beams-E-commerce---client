@@ -37,9 +37,8 @@ const Orders = () => {
                 <div className="flex justify-around my-5 items-start">
                     <div className="border-2 border-black">
                         <h1 className="text-xl px-2 mb-1 ">Orders</h1>
-
                         {orderDetails?.orders?.map((order: TOrderId) => (
-                            <div key={order?._id} className="px-1 m-1 border-2 border-black ">
+                            <div key={`${order?._id}-orderDetails`} className="px-1 m-1 border-2 border-black ">
                                 <li
                                     onClick={() => updateView(order?._id)}
                                     className="cursor-pointer list-disc leading-tight pr-1 "

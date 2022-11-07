@@ -64,7 +64,6 @@ describe("Login", () => {
     });
 
     it("should toastify success upon successful login", async () => {
-        //put in mock data under service
         (axios.get as jest.Mock).mockResolvedValue({
             data: mockProductData,
         });

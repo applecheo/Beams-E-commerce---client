@@ -65,7 +65,7 @@ export const orderDetailContextValue: TOrderDetailsContext = {
     getUserViewOrder: jest.fn(),
 };
 
-const userData = {
+export const userData = {
     email: "email",
     firstName: "firstName",
     gender: "gender",

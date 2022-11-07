@@ -1,6 +1,8 @@
 import { MemoryRouter } from "react-router-dom";
 
 import axios from "axios";
+import { ProductDetailsContext } from "context/ProductDetailsProvider";
+import { productDetailContextValue } from "service/mockContextData";
 import { mockWishListData } from "service/mockFetchData";
 import { customRender, providerRender, screen, userEvent, waitFor } from "testUtils";
 
@@ -45,14 +47,14 @@ describe("Browse wishlist page", () => {
 
         providerRender(
             <MemoryRouter>
-                <Wishlist />
+                <ProductDetailsContext.Provider value={productDetailContextValue}>
+                    <Wishlist />
+                </ProductDetailsContext.Provider>
             </MemoryRouter>
         );
 
         const productName = await screen.findByRole("heading", { name: "COLLUSION fantasy print T-shirt in black" });
-
-        // eslint-disable-next-line testing-library/no-wait-for-side-effects
-        await waitFor(() => userEvent.click(productName));
+        userEvent.click(productName);
         await waitFor(() => expect(mockNavigate).toBeCalledWith("/men/6343939ef1f4f6889b0d8930"));
     });
 });
