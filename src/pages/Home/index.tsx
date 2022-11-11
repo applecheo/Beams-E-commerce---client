@@ -21,7 +21,7 @@ const Home = () => {
         const data = res?.data;
         const filterNewArrival = data.filter((product: { isNewArrival: boolean }) => product?.isNewArrival === true);
         setNewArrivalData(filterNewArrival);
-        const first5 = filterNewArrival.slice(0, 5); //change to 5
+        const first5 = filterNewArrival.slice(0, 5);
         setDisplayNewArrivalData(first5);
     };
 

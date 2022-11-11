@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useProductDetails } from "context/ProductDetailsProvider";
@@ -12,6 +13,7 @@ type TProductCard = {
 
 const ProductCard = ({ name, images, price, _id }: TProductCard) => {
     const { viewProductHandler } = useProductDetails();
+    const [MouseOver, setMouseOver] = useState(false);
     const navigate = useNavigate();
 
     const setDisplayAndNavigate = (productId: string) => {
@@ -21,8 +23,12 @@ const ProductCard = ({ name, images, price, _id }: TProductCard) => {
     };
 
     return (
-        <div className="flex flex-col px-1 items-center cursor-pointer" onClick={() => setDisplayAndNavigate(_id)}>
-            <img src={images[0]} alt={name} className="" />
+        <div className="flex flex-col px-1 items-center cursor-pointer my-1" onClick={() => setDisplayAndNavigate(_id)}>
+            {MouseOver === false ? (
+                <img src={images[0]} alt={name} className="" onMouseEnter={() => setMouseOver(true)} />
+            ) : (
+                <img src={images[1]} alt={name} className="" onMouseLeave={() => setMouseOver(false)} />
+            )}
             <p className="leading-tight text-sm px-2 pt-1 text-center w-32 truncate ">{name}</p>
             <p className="text-xs align-bottom font-normal">${price}</p>
         </div>

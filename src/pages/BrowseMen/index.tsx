@@ -1,8 +1,38 @@
+/* eslint-disable react/no-unescaped-entities */
+import { useEffect, useState } from "react";
+
+import axios from "axios";
+import ProductCard from "components/ProductCard";
+import { TDisplayProduct } from "context/ProductDetailsProvider";
+
 const BrowseMen = () => {
+    const [menProduct, SetMenProduct] = useState<TDisplayProduct[]>([]);
+
+    useEffect(() => {
+        fetchMenProduct();
+    });
+    const fetchMenProduct = async () => {
+        const { data } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/men` as string);
+
+        const sortByDescending = data.sort(
+            (a: { createdAt: string | number | Date }, b: { createdAt: string | number | Date }) =>
+                new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+        );
+        SetMenProduct([...sortByDescending]);
+    };
     return (
-        <div>
-            BrowseMen Page
-            {/* <Generate /> */}
+        <div className="mx-96 ">
+            <div className="flex flex-col items-center justify-center">
+                <h1 className="text-3xl  mt-5 mb-3">New Arrivals</h1>
+                <p className="text-sm">
+                    Never get bored with our men's clothing edit. We offer a wide range of clothing.
+                </p>
+            </div>
+            <div className="grid grid-cols-4 my-5">
+                {menProduct?.map((product) => (
+                    <ProductCard key={product._id} {...product} />
+                ))}
+            </div>
         </div>
     );
 };
