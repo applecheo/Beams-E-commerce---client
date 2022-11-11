@@ -1,11 +1,75 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import axios from "axios";
 import ProductCard from "components/ProductCard";
 import { MEN_COVER_PICTURE_URL, WOMEN_COVER_PICTURE_URL } from "constants/index";
-import { useProductDetails } from "context/ProductDetailsProvider";
+import { TDisplayProduct } from "context/ProductDetailsProvider";
 
 const Home = () => {
-    const { fetchNewArrival, displayNewArrivalData, prevSlide, nextSlide } = useProductDetails();
+    const [newArrivalData, setNewArrivalData] = useState<TDisplayProduct[]>([]);
+    const [displayNewArrivalData, setDisplayNewArrivalData] = useState<TDisplayProduct[]>([]);
+    let position;
+
+    const first_5_element = newArrivalData.slice(0, 5);
+    const first_element_of_first_5_element = first_5_element?.[0]?._id;
+    const second_5_element = newArrivalData.slice(5, 10);
+    const first_element_of_second_5_element = second_5_element?.[0]?._id;
+    const third_5_element = newArrivalData.slice(10, 15);
+
+    const fetchNewArrival = async () => {
+        const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/home` as string);
+        const data = res?.data;
+        const filterNewArrival = data.filter((product: { isNewArrival: boolean }) => product?.isNewArrival === true);
+        setNewArrivalData(filterNewArrival);
+        const first5 = filterNewArrival.slice(0, 5); //change to 5
+        setDisplayNewArrivalData(first5);
+    };
+
+    const nextSlide = () => {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_5_element).length === 1) {
+            position = 0;
+        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_5_element).length === 1) {
+            position = 1;
+        } else {
+            position = 2;
+        }
+        switch (position) {
+            case 0:
+                setDisplayNewArrivalData(second_5_element);
+                break;
+            case 1:
+                setDisplayNewArrivalData(third_5_element);
+                break;
+            case 2:
+                setDisplayNewArrivalData(first_5_element);
+                break;
+            default:
+                setDisplayNewArrivalData(first_5_element);
+        }
+    };
+
+    const prevSlide = () => {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_5_element).length === 1) {
+            position = 0;
+        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_5_element).length === 1) {
+            position = 1;
+        } else {
+            position = 2;
+        }
+        switch (position) {
+            case 0:
+                setDisplayNewArrivalData(third_5_element);
+                break;
+            case 1:
+                setDisplayNewArrivalData(first_5_element);
+                break;
+            case 2:
+                setDisplayNewArrivalData(second_5_element);
+                break;
+            default:
+                setDisplayNewArrivalData(first_5_element);
+        }
+    };
 
     useEffect(() => {
         fetchNewArrival();
@@ -32,10 +96,10 @@ const Home = () => {
                 <div className="flex justify-between items-center">
                     <h1 className="text-lg my-1 ml-1 font-medium">NEW ARRIVALS</h1>
                     <div className="flex">
-                        <button className="mx-1" onClick={prevSlide}>
+                        <button className="mx-1" onClick={prevSlide} data-testid="prev-arrow-button">
                             ⇦
                         </button>
-                        <button className="mx-1" onClick={nextSlide}>
+                        <button className="mx-1" onClick={nextSlide} data-testid="next-arrow-button">
                             ⇨
                         </button>
                     </div>

@@ -39,11 +39,6 @@ export const productDetailContextValue: TProductDetailsContext = {
     productData: productData,
     viewProductHandler: jest.fn(),
     display: "id",
-    newArrivalData: [],
-    fetchNewArrival: jest.fn(),
-    prevSlide: jest.fn(),
-    nextSlide: jest.fn(),
-    displayNewArrivalData: productData,
 };
 
 const userViewOrderData = {
