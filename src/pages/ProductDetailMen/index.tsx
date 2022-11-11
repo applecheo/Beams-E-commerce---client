@@ -38,9 +38,9 @@ const ProductDetailMen = () => {
                 </div>
                 <div className="flex flex-col">
                     <div className="w-80">
-                        <h1 className="text-3xl">{currentViewing?.name}</h1>
-                        <p className="text-2xl">${currentViewing?.price}</p>
-                        <p className="text-xl">Size: {currentViewing?.size}</p>
+                        <h1 className="text-2xl">{currentViewing?.name}</h1>
+                        <p className="text-xl my-1">${currentViewing?.price}</p>
+                        <p className="text-l ">Size: {currentViewing?.size}</p>
                         <p>
                             Qty:
                             {
