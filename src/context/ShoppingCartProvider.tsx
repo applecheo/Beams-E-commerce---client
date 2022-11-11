@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 import axios from "axios";
 
+import { useAuth } from "./AuthProvider";
 import { useOrderDetails } from "./OrderDetailsProvider";
 
 type TShoppingCartProviderProps = {
@@ -38,7 +39,8 @@ export const useShoppingCart = () => {
 export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [cartItems, setCartItems] = useState<TCartItems[]>([]); //as array
-    const { getOrderId, updateUserOrder } = useOrderDetails();
+    const { getOrderId } = useOrderDetails();
+    const { userData } = useAuth();
 
     const openCart = () => {
         setIsOpen(true);
@@ -82,7 +84,12 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         });
         const orderId = res.data._id;
         getOrderId(orderId);
-        updateUserOrder(orderId);
+        const body = { body: orderId };
+        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body, {
+            headers: {
+                Authorization: `Bearer ${TOKEN}`,
+            },
+        });
     };
     return (
         <ShoppingCartContext.Provider

@@ -2,8 +2,6 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 import axios from "axios";
 
-import { useAuth } from "./AuthProvider";
-
 type TOrderDetailsProviderProps = {
     children: ReactNode;
 };
@@ -13,7 +11,6 @@ export type TOrderDetailsContext = {
     orderId: string;
     orderDetails: TOrderDetail;
     getOrderDetails: (userId: string) => void;
-    updateUserOrder: (userId: string) => void;
     userViewOrder: TOrder;
     getUserViewOrder: (id: string) => void;
 };
@@ -52,7 +49,6 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     const [orderId, setOrderId] = useState("");
     const [orderDetails, setOrderDetails] = useState<TOrderDetail>({} as TOrderDetail);
     const [userViewOrder, setUserViewOrder] = useState<TOrder>({} as TOrder);
-    const { userData } = useAuth();
 
     const getOrderId = (orderId: string) => {
         setOrderId(orderId);
@@ -60,15 +56,6 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
     const getOrderDetails = async (userId: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
         setOrderDetails(res.data);
-    };
-    const updateUserOrder = async (orderId: string) => {
-        const TOKEN = sessionStorage.getItem("token_key");
-        const body = { body: orderId };
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body, {
-            headers: {
-                Authorization: `Bearer ${TOKEN}`,
-            },
-        });
     };
 
     const getUserViewOrder = async (id: string) => {
@@ -82,7 +69,6 @@ export const OrderDetailsProvider = ({ children }: TOrderDetailsProviderProps) =
                 orderId,
                 orderDetails,
                 getOrderDetails,
-                updateUserOrder,
                 userViewOrder,
                 getUserViewOrder,
             }}

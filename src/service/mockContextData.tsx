@@ -60,7 +60,6 @@ export const orderDetailContextValue: TOrderDetailsContext = {
     orderId: "123",
     orderDetails: orderDetailsData,
     getOrderDetails: jest.fn(),
-    updateUserOrder: jest.fn(),
     userViewOrder: userViewOrderData,
     getUserViewOrder: jest.fn(),
 };
