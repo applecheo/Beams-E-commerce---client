@@ -10,64 +10,64 @@ const Home = () => {
     const [displayNewArrivalData, setDisplayNewArrivalData] = useState<TDisplayProduct[]>([]);
     let position;
 
-    const first_5_element = newArrivalData.slice(0, 5);
-    const first_element_of_first_5_element = first_5_element?.[0]?._id;
-    const second_5_element = newArrivalData.slice(5, 10);
-    const first_element_of_second_5_element = second_5_element?.[0]?._id;
-    const third_5_element = newArrivalData.slice(10, 15);
+    const first_4_element = newArrivalData.slice(0, 4);
+    const first_element_of_first_4_element = first_4_element?.[0]?._id;
+    const second_4_element = newArrivalData.slice(4, 8);
+    const first_element_of_second_4_element = second_4_element?.[0]?._id;
+    const third_4_element = newArrivalData.slice(8, 12);
 
     const fetchNewArrival = async () => {
         const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/home` as string);
         const data = res?.data;
         const filterNewArrival = data.filter((product: { isNewArrival: boolean }) => product?.isNewArrival === true);
         setNewArrivalData(filterNewArrival);
-        const first5 = filterNewArrival.slice(0, 5);
-        setDisplayNewArrivalData(first5);
+        const first4 = filterNewArrival.slice(0, 4);
+        setDisplayNewArrivalData(first4);
     };
 
     const nextSlide = () => {
-        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_5_element).length === 1) {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_4_element).length === 1) {
             position = 0;
-        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_5_element).length === 1) {
+        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_4_element).length === 1) {
             position = 1;
         } else {
             position = 2;
         }
         switch (position) {
             case 0:
-                setDisplayNewArrivalData(second_5_element);
+                setDisplayNewArrivalData(second_4_element);
                 break;
             case 1:
-                setDisplayNewArrivalData(third_5_element);
+                setDisplayNewArrivalData(third_4_element);
                 break;
             case 2:
-                setDisplayNewArrivalData(first_5_element);
+                setDisplayNewArrivalData(first_4_element);
                 break;
             default:
-                setDisplayNewArrivalData(first_5_element);
+                setDisplayNewArrivalData(first_4_element);
         }
     };
 
     const prevSlide = () => {
-        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_5_element).length === 1) {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_4_element).length === 1) {
             position = 0;
-        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_5_element).length === 1) {
+        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_4_element).length === 1) {
             position = 1;
         } else {
             position = 2;
         }
         switch (position) {
             case 0:
-                setDisplayNewArrivalData(third_5_element);
+                setDisplayNewArrivalData(third_4_element);
                 break;
             case 1:
-                setDisplayNewArrivalData(first_5_element);
+                setDisplayNewArrivalData(first_4_element);
                 break;
             case 2:
-                setDisplayNewArrivalData(second_5_element);
+                setDisplayNewArrivalData(second_4_element);
                 break;
             default:
-                setDisplayNewArrivalData(first_5_element);
+                setDisplayNewArrivalData(first_4_element);
         }
     };
 
@@ -76,18 +76,15 @@ const Home = () => {
     }, []);
 
     return (
-        <div className="mx-96">
-            <div
-                className=" flex justify-between mt-9 mb-4
-            "
-            >
+        <div className="sm: flex justify-center flex-col mx-2 lg:mt-4 xl:mx-72 2xl:mx-96 ">
+            <div className=" flex justify-between mt-2 mb-1">
                 <img
                     src={MEN_COVER_PICTURE_URL}
                     alt="men-cover"
-                    className="w-1/2 opacity-90 max-w-3xl mr-2 object-cover max-h-96"
+                    className="w-1/2 opacity-90 max-w-3xl mr-1 object-cover max-h-48 md:max-h-60 lg:max-h-80 xl:max-h-64 2xl:max-h-96"
                 />
                 <img
-                    className="w-1/2 opacity-90 max-w-3xl ml-2 object-cover max-h-96"
+                    className="w-1/2 opacity-90 max-w-3xl ml-1 object-cover max-h-48 md:max-h-60 lg:max-h-80 xl:max-h-64 2xl:max-h-96"
                     alt="women-cover"
                     src={WOMEN_COVER_PICTURE_URL}
                 />
@@ -104,7 +101,7 @@ const Home = () => {
                         </button>
                     </div>
                 </div>
-                <div className="flex ">
+                <div className="grid grid-cols-2 md:grid-cols-4">
                     {displayNewArrivalData?.map((product) => (
                         <ProductCard key={product._id} {...product} />
                     ))}
@@ -113,31 +110,37 @@ const Home = () => {
             <div>
                 <h1 className="text-lg my-2 ml-1 font-medium">CATEGORIES</h1>
                 <div className="flex mb-5 justify-between">
-                    <div className="w-1/3 max-w-xl mx-1">
+                    <div className="w-1/3 max-w-sm mx-1">
                         <img
                             src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2FMaison-Kitsune%CC%81-ig-2_unisexcategory.jpg?q=95"
                             alt="shop-by-clothing-cover"
                         />
-                        <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
-                        <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        <div className="flex flex-col items-center md:flex-row">
+                            <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
+                            <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        </div>
                     </div>
 
-                    <div className="w-1/3 max-w-xl mx-1">
+                    <div className="w-1/3 max-w-sm mx-1">
                         <img
                             src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2FLoewe-Unisex-Page-Sep6.jpg?q=95"
                             alt="shop-by-accessories-cover"
                         />
-                        <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
-                        <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        <div className="flex flex-col items-center md:flex-row">
+                            <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
+                            <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        </div>
                     </div>
 
-                    <div className="w-1/3 max-w-xl mx-1">
+                    <div className="w-1/3 max-w-sm mx-1">
                         <img
                             src="https://image-cdn.hypb.st/https%3A%2F%2Fhbx.hypebeast.com%2Ffiles%2F2022%2F09%2Fasicsjjjjound-unisexcategory-shoes.jpg?q=95"
                             alt="shop-by-shoes-cover"
                         />
-                        <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
-                        <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        <div className="flex flex-col items-center md:flex-row">
+                            <span className="mr-2 tracking-tighter text-xs">SHOP MEN</span>
+                            <span className="mr-2 tracking-tighter text-xs">SHOP WOMEN</span>
+                        </div>
                     </div>
                 </div>
             </div>
