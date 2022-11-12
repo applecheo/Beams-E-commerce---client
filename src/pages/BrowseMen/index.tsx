@@ -21,14 +21,14 @@ const BrowseMen = () => {
         SetMenProduct([...sortByDescending]);
     };
     return (
-        <div className="mx-96 ">
+        <div className="sm: flex justify-center flex-col mx-2 lg:mt-4 xl:mx-72 2xl:mx-96 ">
             <div className="flex flex-col items-center justify-center">
-                <h1 className="text-3xl  mt-5 mb-3">New Arrivals</h1>
-                <p className="text-sm">
+                <h1 className="text-3xl mt-2 mb-3">New Arrivals</h1>
+                <p className="text-sm mx-2">
                     Never get bored with our men's clothing edit. We offer a wide range of clothing.
                 </p>
             </div>
-            <div className="grid grid-cols-4 my-5">
+            <div className="grid grid-cols-3 my-2 lg:grid-cols-4 xl:grid-cols-5">
                 {menProduct?.map((product) => (
                     <ProductCard key={product._id} {...product} />
                 ))}

@@ -29,19 +29,19 @@ const ProductDetailMen = () => {
         }
     }, []);
     return (
-        <div className="mx-96">
-            <div className="my-16 flex justify-around">
+        <div className="sm:flex justify-center mx-2 lg:mt-4 xl:mx-72 2xl:mx-96">
+            <div className="flex mt-1 sm:flex-col items-center">
+                <h1 className="text-2xl sm:text-lg text-center xl:text-2xl">{currentViewing?.name}</h1>
+
+                <p className="text-xl my-1 sm:text-sm text-center xl:text-xl">${currentViewing?.price}</p>
                 <div className="grid grid-cols-2 ">
                     {currentViewing?.images?.map((img) => (
-                        <img src={img} key={img} alt={img} className="w-48 h-56 p-1" />
+                        <img src={img} key={img} alt={img} className="w-48 h-56 p-1 xl:h-64 xl:w-56" />
                     ))}
                 </div>
-                <div className="flex flex-col">
-                    <div className="w-80">
-                        <h1 className="text-2xl">{currentViewing?.name}</h1>
-                        <p className="text-xl my-1">${currentViewing?.price}</p>
-                        <p className="text-l ">Size: {currentViewing?.size}</p>
-                        <p>
+                <div className="flex flex-col items-center">
+                    <div className="flex">
+                        <p className="text-lg sm:text-sm xl:text-base">
                             Qty:
                             {
                                 productData
@@ -49,12 +49,13 @@ const ProductDetailMen = () => {
                                     .filter((productSize) => productSize.size === currentViewing?.size).length
                             }
                         </p>
+                        <p className="text-l sm:text-sm mx-2 xl:text-base">Size: {currentViewing?.size}</p>
                     </div>
-                    <div className="flex flex-col items-center mt-10">
+                    <div className="flex flex-col items-center my-2">
                         {id && (
                             <button
                                 onClick={() => addToCart(id)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56 my-1"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56 my-1 xl:w-80"
                             >
                                 Add To Cart
                             </button>
@@ -63,14 +64,14 @@ const ProductDetailMen = () => {
                         {id && userData?.wishList?.includes(currentViewing?._id) === true ? (
                             <button
                                 onClick={() => updateWishlist(currentViewing?._id)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56 xl:w-80"
                             >
                                 Remove from Wishlist
                             </button>
                         ) : (
                             <button
                                 onClick={() => updateWishlist(currentViewing?._id)}
-                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56"
+                                className="flex items-center justify-center rounded-md border border-transparent bg-black px-1  text-base font-base text-white shadow-sm hover:drop-shadow-2xl py-1 w-56 xl:w-80"
                             >
                                 Add to Wishlist
                             </button>
