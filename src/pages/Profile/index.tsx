@@ -23,7 +23,7 @@ const Profile = () => {
         }
     };
     return (
-        <div className="mx-96 flex justify-center  ">
+        <div className="sm: flex justify-center lg:mt-4 ">
             <div className="flex flex-col border-2 border-black w-80 my-5">
                 <div className=" mt-0.5 p-2">
                     <h1 className="text-xl ">Profile</h1>

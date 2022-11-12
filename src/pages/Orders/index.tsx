@@ -32,13 +32,13 @@ const Orders = () => {
     };
 
     return (
-        <div className="mx-96">
+        <div className="md:mx-56 mt-5 lg:mx-80 xl:mx-72 2xl:mx-96">
             {orderDetails?.orders?.length !== 0 ? (
-                <div className="flex justify-around my-5 items-start">
+                <div className="sm: m-3 flex flex-col xl:flex-row justify-around my-5 ">
                     <div className="border-2 border-black">
                         <h1 className="text-xl px-2 mb-1 ">Orders</h1>
                         {orderDetails?.orders?.map((order: TOrderId) => (
-                            <div key={`${order?._id}-orderDetails`} className="px-1 m-1 border-2 border-black ">
+                            <div key={`${order?._id}-orderDetails`} className="px-1 m-1 border-2 border-black text-lg">
                                 <li
                                     onClick={() => updateView(order?._id)}
                                     className="cursor-pointer list-disc leading-tight pr-1 "
@@ -48,8 +48,8 @@ const Orders = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="border-2 border-black w-96">
-                        <h1 className="text-xl pl-1">Order status: {isView?.status}</h1>
+                    <div className="border-2 border-black mt-5 xl:mt-0">
+                        <h1 className="text-xl px-1">Order status: {isView?.status}</h1>
                         {isView?.products?.map((product) => (
                             <OrderDetailCard key={product._id} {...product} />
                         ))}

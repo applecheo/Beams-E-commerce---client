@@ -10,7 +10,7 @@ const Navbar = () => {
     const { openCart } = useShoppingCart();
 
     return (
-        <div className="sm:flex items-baseline border-b-2 border-black justify-between min-w-full px-2 xl:px-64 2xl:px-80">
+        <div className="sm:flex items-baseline border-b-2 border-black justify-between min-w-full px-2 xl:px-72 2xl:px-96">
             <div>
                 <NavLink to={"/"} className=" text-4xl ">
                     Beams
