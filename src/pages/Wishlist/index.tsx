@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
+import ProductCard from "components/ProductCard";
 import { useAuth } from "context/AuthProvider";
-import { TDisplayProduct, useProductDetails } from "context/ProductDetailsProvider";
+import { TDisplayProduct } from "context/ProductDetailsProvider";
 
 const Wishlist = () => {
     const { userData } = useAuth();
-    const { viewProductHandler } = useProductDetails();
     const [wishList, setWatchList] = useState<TDisplayProduct[]>([]);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const displayWishlist = async () => {
@@ -23,32 +21,20 @@ const Wishlist = () => {
         displayWishlist();
     }, []);
 
-    const navigateToProductDetailPage = (id: string) => {
-        viewProductHandler(id);
-        const productDetailLink = `/men/${id}`;
-        navigate(productDetailLink);
-    };
     return (
-        <div className="mx-96">
-            <div className="mt-5">
-                <h1 className="text-xl mb-4">Wishlist</h1>
-                <div className="grid grid-cols-5">
-                    {wishList.map((x) => (
-                        <div
-                            key={x._id}
-                            className="cursor-pointer hover:drop-shadow-xl"
-                            onClick={() => navigateToProductDetailPage(x._id)}
-                        >
-                            <img
-                                src={x.images[0]}
-                                alt={x.name}
-                                className="h-44 w-36 flex-shrink-0 overflow-hidden rounded-md border  "
-                            />
-                            <h1 className="w-36 text-sm leading-tight text-center truncate">{x.name}</h1>
-                        </div>
-                    ))}
+        <div className="sm: flex justify-center mx-2 lg:mt-4 xl:mx-72 2xl:mx-96">
+            {wishList.length >= 1 ? (
+                <div className="sm:mt-5">
+                    <h1 className="sm:text-2xl mb-4">Wishlist</h1>
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
+                        {wishList?.map((product) => (
+                            <ProductCard key={product._id} {...product} />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <h1 className="text-2xl text-center mt-10 mx-2">Your wishlist is empty. Start filling it up!</h1>
+            )}
         </div>
     );
 };

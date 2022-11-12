@@ -21,7 +21,7 @@ describe("Dropdown", () => {
         const profileLink = screen.getByRole("link", { name: "Profile" });
         expect(profileLink).toBeInTheDocument();
 
-        const wishListLink = screen.getByRole("link", { name: "WishList" });
+        const wishListLink = screen.getByRole("link", { name: "Wishlist" });
         expect(wishListLink).toBeInTheDocument();
 
         const loginLink = screen.getByRole("link", { name: "Login" });
@@ -42,7 +42,7 @@ describe("Dropdown", () => {
         const ordersLink = screen.getByText("Orders");
         expect(ordersLink).toBeInTheDocument();
 
-        const wishListLink = screen.getByText("WishList");
+        const wishListLink = screen.getByText("Wishlist");
         expect(wishListLink).toBeInTheDocument();
 
         const signOutButton = screen.getByText("Sign out");

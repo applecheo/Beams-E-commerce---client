@@ -55,11 +55,11 @@ const DropDown = () => {
                             tabIndex={-1}
                             id="menu-item-0"
                         >
-                            WishList
+                            Wishlist
                         </Link>
                     ) : (
                         <Link to="/login" className="text-black block  text-sm">
-                            WishList
+                            Wishlist
                         </Link>
                     )}
 

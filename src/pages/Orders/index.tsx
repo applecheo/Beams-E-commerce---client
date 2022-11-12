@@ -56,7 +56,7 @@ const Orders = () => {
                     </div>
                 </div>
             ) : (
-                <h1 className="text-2xl text-center mt-10">There are no orders in your account</h1>
+                <h1 className="text-2xl text-center mt-10 mx-2">There are no orders in your account</h1>
             )}
         </div>
     );

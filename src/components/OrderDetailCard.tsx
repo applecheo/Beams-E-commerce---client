@@ -7,7 +7,7 @@ const OrderDetailCard = ({ images, price, name, size }: TProduct) => {
                 <img
                     src={images?.[0]}
                     alt={images?.[0]}
-                    className="h-28 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
+                    className="h-28 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 "
                 />
 
                 <div className="flex flex-col text-xs px-2">

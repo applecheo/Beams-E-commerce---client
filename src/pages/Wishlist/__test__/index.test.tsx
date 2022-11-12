@@ -1,10 +1,8 @@
 import { MemoryRouter } from "react-router-dom";
 
 import axios from "axios";
-import { ProductDetailsContext } from "context/ProductDetailsProvider";
-import { productDetailContextValue } from "service/mockContextData";
 import { mockWishListData } from "service/mockFetchData";
-import { customRender, providerRender, screen, userEvent, waitFor } from "testUtils";
+import { customRender, providerRender, screen, waitFor } from "testUtils";
 
 import Wishlist from "..";
 
@@ -20,7 +18,7 @@ jest.mock("axios");
 describe("Browse wishlist page", () => {
     it("should render wishlist page", async () => {
         customRender(<Wishlist />);
-        const heading = screen.getByRole("heading", { name: "Wishlist" });
+        const heading = screen.getByRole("heading", { name: "Your wishlist is empty. Start filling it up!" });
         await waitFor(() => expect(heading).toBeInTheDocument());
     });
 
@@ -35,26 +33,8 @@ describe("Browse wishlist page", () => {
             </MemoryRouter>
         );
 
-        const productName = await screen.findByRole("heading", { name: "COLLUSION fantasy print T-shirt in black" });
+        const wishlist = await screen.findByRole("heading", { name: "Wishlist" });
 
-        await waitFor(() => expect(productName).toBeInTheDocument());
-    });
-
-    it("should navigate to selected product page", async () => {
-        (axios.get as jest.Mock).mockResolvedValue({
-            data: mockWishListData,
-        });
-
-        providerRender(
-            <MemoryRouter>
-                <ProductDetailsContext.Provider value={productDetailContextValue}>
-                    <Wishlist />
-                </ProductDetailsContext.Provider>
-            </MemoryRouter>
-        );
-
-        const productName = await screen.findByRole("heading", { name: "COLLUSION fantasy print T-shirt in black" });
-        userEvent.click(productName);
-        await waitFor(() => expect(mockNavigate).toBeCalledWith("/men/6343939ef1f4f6889b0d8930"));
+        await waitFor(() => expect(wishlist).toBeInTheDocument());
     });
 });
