@@ -12,13 +12,14 @@ type TProductCard = {
 };
 
 const ProductCard = ({ name, images, price, _id }: TProductCard) => {
-    const { viewProductHandler } = useProductDetails();
+    const { viewProductHandler, productData } = useProductDetails();
     const [MouseOver, setMouseOver] = useState(false);
     const navigate = useNavigate();
 
     const setDisplayAndNavigate = (productId: string) => {
+        const product = productData.find((product) => product._id === productId);
         viewProductHandler(productId);
-        const productDetailLink = `/men/${productId}`;
+        const productDetailLink = `/${product?.gender}/${productId}`;
         navigate(productDetailLink);
     };
 

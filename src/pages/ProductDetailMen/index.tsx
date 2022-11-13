@@ -40,16 +40,20 @@ const ProductDetailMen = () => {
                     ))}
                 </div>
                 <div className="flex flex-col items-center">
-                    <div className="flex">
-                        <p className="text-lg sm:text-sm xl:text-base">
+                    <div className="flex justify-between w-48">
+                        <p className="sm:text-sm xl:text-base">
                             Qty:
-                            {
-                                productData
-                                    .filter((product) => product.name === currentViewing?.name)
-                                    .filter((productSize) => productSize.size === currentViewing?.size).length
-                            }
+                            <span className="sm:text-xs xl:text-sm">
+                                {
+                                    productData
+                                        .filter((product) => product.name === currentViewing?.name)
+                                        .filter((productSize) => productSize.size === currentViewing?.size).length
+                                }
+                            </span>
                         </p>
-                        <p className="text-l sm:text-sm mx-2 xl:text-base">Size: {currentViewing?.size}</p>
+                        <p className="text-lg sm:text-sm xl:text-base">
+                            Size:<span className=" sm:text-xs mx-0.5 xl:text-sm">{currentViewing?.size}</span>
+                        </p>
                     </div>
                     <div className="flex flex-col items-center my-2">
                         {id && (
