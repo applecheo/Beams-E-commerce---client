@@ -6,7 +6,7 @@ import ProductCard from "components/ProductCard";
 import { TDisplayProduct } from "context/ProductDetailsProvider";
 
 const BrowseMen = () => {
-    const [menProduct, SetMenProduct] = useState<TDisplayProduct[]>([]);
+    const [menProduct, setMenProduct] = useState<TDisplayProduct[]>([]);
 
     useEffect(() => {
         fetchMenProduct();
@@ -18,7 +18,7 @@ const BrowseMen = () => {
             (a: { createdAt: string | number | Date }, b: { createdAt: string | number | Date }) =>
                 new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
         );
-        SetMenProduct([...sortByDescending]);
+        setMenProduct([...sortByDescending]);
     };
     return (
         <div className="sm: flex justify-center flex-col mx-2 lg:mt-4 xl:mx-72 2xl:mx-96 ">

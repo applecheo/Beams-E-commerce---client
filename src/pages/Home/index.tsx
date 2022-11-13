@@ -10,64 +10,64 @@ const Home = () => {
     const [displayNewArrivalData, setDisplayNewArrivalData] = useState<TDisplayProduct[]>([]);
     let position;
 
-    const first_4_element = newArrivalData.slice(0, 4);
-    const first_element_of_first_4_element = first_4_element?.[0]?._id;
-    const second_4_element = newArrivalData.slice(4, 8);
-    const first_element_of_second_4_element = second_4_element?.[0]?._id;
-    const third_4_element = newArrivalData.slice(8, 12);
+    const first_page_element = newArrivalData.slice(0, 5);
+    const first_element_of_first_page = first_page_element?.[0]?._id;
+    const second_page_element = newArrivalData.slice(5, 10);
+    const second_element_of_second_page = second_page_element?.[0]?._id;
+    const third_page_element = newArrivalData.slice(10, 15);
 
     const fetchNewArrival = async () => {
         const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/home` as string);
         const data = res?.data;
         const filterNewArrival = data.filter((product: { isNewArrival: boolean }) => product?.isNewArrival === true);
         setNewArrivalData(filterNewArrival);
-        const first4 = filterNewArrival.slice(0, 4);
-        setDisplayNewArrivalData(first4);
+        const first5 = filterNewArrival.slice(0, 5);
+        setDisplayNewArrivalData(first5);
     };
 
     const nextSlide = () => {
-        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_4_element).length === 1) {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_page).length === 1) {
             position = 0;
-        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_4_element).length === 1) {
+        } else if (displayNewArrivalData.filter((x) => x._id === second_element_of_second_page).length === 1) {
             position = 1;
         } else {
             position = 2;
         }
         switch (position) {
             case 0:
-                setDisplayNewArrivalData(second_4_element);
+                setDisplayNewArrivalData(second_page_element);
                 break;
             case 1:
-                setDisplayNewArrivalData(third_4_element);
+                setDisplayNewArrivalData(third_page_element);
                 break;
             case 2:
-                setDisplayNewArrivalData(first_4_element);
+                setDisplayNewArrivalData(first_page_element);
                 break;
             default:
-                setDisplayNewArrivalData(first_4_element);
+                setDisplayNewArrivalData(first_page_element);
         }
     };
 
     const prevSlide = () => {
-        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_4_element).length === 1) {
+        if (displayNewArrivalData.filter((x) => x._id === first_element_of_first_page).length === 1) {
             position = 0;
-        } else if (displayNewArrivalData.filter((x) => x._id === first_element_of_second_4_element).length === 1) {
+        } else if (displayNewArrivalData.filter((x) => x._id === second_element_of_second_page).length === 1) {
             position = 1;
         } else {
             position = 2;
         }
         switch (position) {
             case 0:
-                setDisplayNewArrivalData(third_4_element);
+                setDisplayNewArrivalData(third_page_element);
                 break;
             case 1:
-                setDisplayNewArrivalData(first_4_element);
+                setDisplayNewArrivalData(first_page_element);
                 break;
             case 2:
-                setDisplayNewArrivalData(second_4_element);
+                setDisplayNewArrivalData(second_page_element);
                 break;
             default:
-                setDisplayNewArrivalData(first_4_element);
+                setDisplayNewArrivalData(first_page_element);
         }
     };
 
@@ -101,7 +101,7 @@ const Home = () => {
                         </button>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4">
+                <div className="grid grid-cols-3 md:grid-cols-5">
                     {displayNewArrivalData?.map((product) => (
                         <ProductCard key={product._id} {...product} />
                     ))}
