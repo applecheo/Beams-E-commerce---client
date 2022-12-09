@@ -21,7 +21,7 @@ const ShoppingCart = () => {
     const navigate = useNavigate();
 
     const stripeCheckOut = async (data: TData) => {
-        fetch(`http://localhost:3000/create-checkout-session`, {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/create-checkout-session`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
