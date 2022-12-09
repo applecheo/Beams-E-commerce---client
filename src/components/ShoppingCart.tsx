@@ -21,6 +21,7 @@ const ShoppingCart = () => {
     const navigate = useNavigate();
 
     const stripeCheckOut = async (data: TData) => {
+        sendOrderDetail(data);
         fetch("http://localhost:3000/create-checkout-session", {
             method: "POST",
             headers: {
@@ -32,7 +33,6 @@ const ShoppingCart = () => {
         })
             .then((res) => {
                 if (res.ok) {
-                    sendOrderDetail(data);
                     return res.json();
                 }
                 return res.json().then((json) => Promise.reject(json));
