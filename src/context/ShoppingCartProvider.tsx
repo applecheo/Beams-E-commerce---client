@@ -80,7 +80,7 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
                 Authorization: `Bearer ${TOKEN}`,
             },
         });
-        const orderId = res.data._id;
+        const orderId = await res.data._id;
         const body = { body: orderId };
         await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body, {
             headers: {

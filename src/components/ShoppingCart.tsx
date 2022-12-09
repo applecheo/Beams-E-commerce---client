@@ -21,8 +21,7 @@ const ShoppingCart = () => {
     const navigate = useNavigate();
 
     const stripeCheckOut = async (data: TData) => {
-        sendOrderDetail(data);
-        fetch("http://localhost:3000/create-checkout-session", {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/create-checkout-session`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -37,6 +36,7 @@ const ShoppingCart = () => {
                 }
                 return res.json().then((json) => Promise.reject(json));
             })
+
             .then(({ url }) => {
                 window.location = url;
             })
@@ -52,6 +52,7 @@ const ShoppingCart = () => {
             products: productIds,
         };
         if (userData?._id && data.products.length !== 0) {
+            sendOrderDetail(data);
             stripeCheckOut(data);
             return toast.info("Please proceed to make your payment");
         } else if (!userData?._id) {
