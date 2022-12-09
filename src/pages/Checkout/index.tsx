@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 
-import { useOrderDetails } from "context/OrderDetailsProvider";
+import { useAuth } from "context/AuthProvider";
 
 const Checkout = () => {
-    const { orderId } = useOrderDetails();
+    const { userData } = useAuth();
 
     return (
         <div className="flex flex-col justify-center items-center mt-10">
-            <h1 className="text-xl ">
-                Order id: <span> {orderId}</span>
-            </h1>
-            <p className="lg my-2">Thank you for shopping with us</p>
-            <Link to="/" className="text-xl underline">
+            <p className="text-2xl my-2">Thank you for shopping with us</p>
+
+            <Link to={`/account/orders/${userData._id}`} className="text-lg underline">
+                My Orders
+            </Link>
+            <Link to={`/`} className="text-lg underline">
                 Shop for more
             </Link>
         </div>

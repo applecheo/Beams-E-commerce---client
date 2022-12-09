@@ -21,7 +21,7 @@ jest.mock("react-router-dom", () => ({
     useNavigate: () => mockNavigate,
 }));
 
-const toastSuccessSpy = jest.spyOn(toast, "success");
+const toastInfoSpy = jest.spyOn(toast, "info");
 const toastErrorSpy = jest.spyOn(toast, "error");
 
 beforeEach(() => {
@@ -50,20 +50,20 @@ describe("Shopping Cart", () => {
 });
 
 describe("checkout", () => {
-    it("should navigate to checkout page when there is product in cart and user is logged in", async () => {
+    // it("should navigate to checkout page when there is product in cart and user is logged in", async () => {
+    //     renderLayout();
+
+    //     checkout();
+
+    //     await waitFor(() => expect(mockNavigate).toBeCalledWith("/checkout"));
+    // });
+
+    it("should toastify make payment upon successful checkout", async () => {
         renderLayout();
 
         checkout();
 
-        await waitFor(() => expect(mockNavigate).toBeCalledWith("/checkout"));
-    });
-
-    it("should toastify success upon successful checkout", async () => {
-        renderLayout();
-
-        checkout();
-
-        await waitFor(() => expect(toastSuccessSpy).toHaveBeenCalledWith("Order haven been placed"));
+        await waitFor(() => expect(toastInfoSpy).toHaveBeenCalledWith("Please proceed to make your payment"));
     });
 
     it("should toastify error if there is nothing in cart upon checkout", async () => {

@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import axios from "axios";
@@ -30,13 +30,27 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }: TAuthProviderProps) => {
     const [userData, setUserData] = useState<TUserData>({} as TUserData);
+    const TOKEN = sessionStorage.getItem("token_key");
 
+    useEffect(() => {
+        if (TOKEN) {
+            const reLogin = async () => {
+                const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/relogin`, {
+                    headers: {
+                        Authorization: `Bearer ${TOKEN}`,
+                    },
+                });
+                const userData = await res.data.user;
+                updateUserData(userData);
+            };
+            reLogin();
+        }
+    }, []);
     const updateUserData = (data: TUserData) => {
         setUserData(data);
     };
 
     const updateWishlist = async (productId: string) => {
-        const TOKEN = sessionStorage.getItem("token_key");
         if (userData) {
             const body = { userId: userData._id };
             await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body, {

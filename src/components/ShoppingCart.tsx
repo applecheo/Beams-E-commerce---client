@@ -10,11 +10,40 @@ import { useShoppingCart } from "context/ShoppingCartProvider";
 
 import CartItem from "./CartItem";
 
+type TData = {
+    orderedBy: string;
+    products: string[];
+};
 const ShoppingCart = () => {
     const { closeCart, isOpen, cartItems, sendOrderDetail } = useShoppingCart();
     const { userData } = useAuth();
     const { productData } = useProductDetails();
     const navigate = useNavigate();
+
+    const stripeCheckOut = async (data: TData) => {
+        fetch("http://localhost:3000/create-checkout-session", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                items: data.products,
+            }),
+        })
+            .then((res) => {
+                if (res.ok) {
+                    sendOrderDetail(data);
+                    return res.json();
+                }
+                return res.json().then((json) => Promise.reject(json));
+            })
+            .then(({ url }) => {
+                window.location = url;
+            })
+            .catch((e) => {
+                console.error(e.error);
+            });
+    };
 
     const checkout = () => {
         const productIds = cartItems.map((product) => product.id);
@@ -23,9 +52,8 @@ const ShoppingCart = () => {
             products: productIds,
         };
         if (userData?._id && data.products.length !== 0) {
-            navigate("/checkout");
-            sendOrderDetail(data);
-            return toast.success("Order haven been placed");
+            stripeCheckOut(data);
+            return toast.info("Please proceed to make your payment");
         } else if (!userData?._id) {
             closeCart();
             navigate("/login");
