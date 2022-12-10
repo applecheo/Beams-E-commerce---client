@@ -75,14 +75,7 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         const TOKEN = sessionStorage.getItem("token_key");
         setCartItems([]);
         closeCart();
-        const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data, {
-            headers: {
-                Authorization: `Bearer ${TOKEN}`,
-            },
-        });
-        const orderId = await res.data._id;
-        const body = { body: orderId };
-        await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout/${userData?._id}` as string, body, {
+        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data, {
             headers: {
                 Authorization: `Bearer ${TOKEN}`,
             },
