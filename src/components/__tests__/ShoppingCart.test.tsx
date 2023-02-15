@@ -66,7 +66,7 @@ describe("checkout", () => {
         await waitFor(() => expect(toastInfoSpy).toHaveBeenCalledWith("Please proceed to make your payment"));
     });
 
-    it("should toastify error if there is nothing in cart upon checkout", async () => {
+    it("should toastify error if user is not logged in", async () => {
         render(
             <MemoryRouter>
                 <ProductDetailsContext.Provider value={productDetailContextValue}>
