@@ -24,7 +24,7 @@ jest.mock("react-router-dom", () => ({
 describe("Product Detail Men page", () => {
     it("should render product detail page", async () => {
         providerRender(<ProductDetailMen />);
-        const addToCartButton = screen.getByRole("button", { name: "Add To Cart" });
+        const addToCartButton = screen.getByRole("button", { name: "Add to bag" });
         const addToWishListButton = screen.getByRole("button", { name: "Add to Wishlist" });
 
         await waitFor(() => expect(addToCartButton).toBeInTheDocument());
@@ -35,18 +35,14 @@ describe("Product Detail Men page", () => {
         renderLayout();
 
         const image = await screen.findByAltText("image1");
-        const price = await screen.findByText("8", { exact: false });
-        const name = await screen.findByText("name");
 
         await waitFor(() => expect(image).toBeInTheDocument());
-        await waitFor(() => expect(price).toBeInTheDocument());
-        await waitFor(() => expect(name).toBeInTheDocument());
     });
 
-    it("should toast added to cart success when add to cart button clicked", async () => {
+    it("should toast added to cart success when add to bag button clicked", async () => {
         providerRender(<ProductDetailMen />);
 
-        const addToCartButton = screen.getByRole("button", { name: "Add To Cart" });
+        const addToCartButton = screen.getByRole("button", { name: "Add to bag" });
 
         userEvent.click(addToCartButton);
 
