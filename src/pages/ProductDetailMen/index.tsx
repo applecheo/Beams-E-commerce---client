@@ -160,7 +160,7 @@ const ProductDetailMen = () => {
 
                                 <RadioGroup value={currentViewing?.size} className="mt-4">
                                     <RadioGroup.Label className="sr-only"> Choose a size </RadioGroup.Label>
-                                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                                    <div className="grid grid-cols-4 gap-4 sm:grid-cols-3  lg:grid-cols-3">
                                         {[currentViewing?.size].map((size) => (
                                             <RadioGroup.Option
                                                 key={`${size}`}
