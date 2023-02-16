@@ -15,8 +15,6 @@ const Checkout = () => {
     useEffect(() => {
         const updateOrderStatus = async () => {
             const { data } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/checkout-session?id=` + id);
-            console.log(data);
-            console.log(userData._id, "id");
             if (data.payment_status === "paid" && userData._id) {
                 const { data } = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/checkout?id=` + id, userData, {
                     headers: {

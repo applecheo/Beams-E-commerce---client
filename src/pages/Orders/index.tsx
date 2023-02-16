@@ -28,7 +28,6 @@ const Orders = () => {
     const getOrderDetails = async (userId: string) => {
         const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
         setOrderDetails(res.data.orders);
-        console.log(res.data.orders);
     };
     const { id } = useParams();
 
