@@ -13,7 +13,6 @@ export { customRender, userEvent };
 // ------------------------------------------------------------------------------------------------------------------------------------------
 
 import { AuthProvider } from "context/AuthProvider";
-import { OrderDetailsProvider } from "context/OrderDetailsProvider";
 import { ProductDetailsProvider } from "context/ProductDetailsProvider";
 import { ShoppingCartProvider } from "context/ShoppingCartProvider";
 
@@ -25,9 +24,7 @@ const AllTheProviders = ({ children }: TAllTheProviderProps) => {
     return (
         <AuthProvider>
             <ProductDetailsProvider>
-                <OrderDetailsProvider>
-                    <ShoppingCartProvider>{children}</ShoppingCartProvider>
-                </OrderDetailsProvider>
+                <ShoppingCartProvider>{children}</ShoppingCartProvider>
             </ProductDetailsProvider>
         </AuthProvider>
     );

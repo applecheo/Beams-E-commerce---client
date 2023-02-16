@@ -1,5 +1,4 @@
 import { TAuthContext } from "context/AuthProvider";
-import { TOrderDetailsContext } from "context/OrderDetailsProvider";
 import { TProductDetailsContext } from "context/ProductDetailsProvider";
 import { TShoppingCartContext } from "context/ShoppingCartProvider";
 
@@ -39,24 +38,6 @@ export const productDetailContextValue: TProductDetailsContext = {
     productData: productData,
     viewProductHandler: jest.fn(),
     display: "id",
-};
-
-const userViewOrderData = {
-    _id: "id",
-    orderedBy: "test",
-    status: "status",
-    name: "name",
-    products: [],
-};
-const orderDetailsData = { orders: [productData], status: "status", _id: "orderId" };
-
-export const orderDetailContextValue: TOrderDetailsContext = {
-    getOrderId: jest.fn(),
-    orderId: "123",
-    orderDetails: orderDetailsData,
-    getOrderDetails: jest.fn(),
-    userViewOrder: userViewOrderData,
-    getUserViewOrder: jest.fn(),
 };
 
 export const userData = {

@@ -3,8 +3,6 @@ import { toast } from "react-toastify";
 
 import axios from "axios";
 
-import { useAuth } from "./AuthProvider";
-
 type TShoppingCartProviderProps = {
     children: ReactNode;
 };
@@ -38,7 +36,6 @@ export const useShoppingCart = () => {
 export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [cartItems, setCartItems] = useState<TCartItems[]>([]); //as array
-    const { userData } = useAuth();
 
     const openCart = () => {
         setIsOpen(true);

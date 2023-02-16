@@ -3,15 +3,9 @@ import { toast } from "react-toastify";
 
 import ShoppingCart from "components/ShoppingCart";
 import AuthContext from "context/AuthProvider";
-import { OrderDetailsContext } from "context/OrderDetailsProvider";
 import { ProductDetailsContext } from "context/ProductDetailsProvider";
 import { ShoppingCartContext } from "context/ShoppingCartProvider";
-import {
-    authContextValue,
-    orderDetailContextValue,
-    productDetailContextValue,
-    shoppingCartContextValue,
-} from "service/mockContextData";
+import { authContextValue, productDetailContextValue, shoppingCartContextValue } from "service/mockContextData";
 import { render, screen, userEvent, waitFor } from "testUtils";
 
 const mockNavigate = jest.fn();
@@ -70,11 +64,9 @@ describe("checkout", () => {
         render(
             <MemoryRouter>
                 <ProductDetailsContext.Provider value={productDetailContextValue}>
-                    <OrderDetailsContext.Provider value={orderDetailContextValue}>
-                        <ShoppingCartContext.Provider value={shoppingCartContextValue}>
-                            <ShoppingCart />
-                        </ShoppingCartContext.Provider>
-                    </OrderDetailsContext.Provider>
+                    <ShoppingCartContext.Provider value={shoppingCartContextValue}>
+                        <ShoppingCart />
+                    </ShoppingCartContext.Provider>
                 </ProductDetailsContext.Provider>
             </MemoryRouter>
         );
@@ -89,11 +81,9 @@ describe("checkout", () => {
             <MemoryRouter>
                 <AuthContext.Provider value={authContextValue}>
                     <ProductDetailsContext.Provider value={productDetailContextValue}>
-                        <OrderDetailsContext.Provider value={orderDetailContextValue}>
-                            <ShoppingCartContext.Provider value={{ ...shoppingCartContextValue, cartItems: [] }}>
-                                <ShoppingCart />
-                            </ShoppingCartContext.Provider>
-                        </OrderDetailsContext.Provider>
+                        <ShoppingCartContext.Provider value={{ ...shoppingCartContextValue, cartItems: [] }}>
+                            <ShoppingCart />
+                        </ShoppingCartContext.Provider>
                     </ProductDetailsContext.Provider>
                 </AuthContext.Provider>
             </MemoryRouter>
@@ -110,11 +100,9 @@ const renderLayout = () => {
         <MemoryRouter>
             <AuthContext.Provider value={authContextValue}>
                 <ProductDetailsContext.Provider value={productDetailContextValue}>
-                    <OrderDetailsContext.Provider value={orderDetailContextValue}>
-                        <ShoppingCartContext.Provider value={shoppingCartContextValue}>
-                            <ShoppingCart />
-                        </ShoppingCartContext.Provider>
-                    </OrderDetailsContext.Provider>
+                    <ShoppingCartContext.Provider value={shoppingCartContextValue}>
+                        <ShoppingCart />
+                    </ShoppingCartContext.Provider>
                 </ProductDetailsContext.Provider>
             </AuthContext.Provider>
         </MemoryRouter>

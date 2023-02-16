@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 import { AuthProvider } from "context/AuthProvider";
-import { OrderDetailsProvider } from "context/OrderDetailsProvider";
 import { ProductDetailsProvider } from "context/ProductDetailsProvider";
 import { ShoppingCartProvider } from "context/ShoppingCartProvider";
 import Layout from "layout";
@@ -67,6 +66,10 @@ const App = () => {
                     path: "/women/:id",
                     element: <ProductDetailWomen />, //extra
                 },
+                {
+                    path: "/women/:id",
+                    element: <ProductDetailWomen />, //extra
+                },
             ],
         },
     ]);
@@ -74,20 +77,18 @@ const App = () => {
         <>
             <AuthProvider>
                 <ProductDetailsProvider>
-                    <OrderDetailsProvider>
-                        <ShoppingCartProvider>
-                            <RouterProvider router={router} />
+                    <ShoppingCartProvider>
+                        <RouterProvider router={router} />
 
-                            <ToastContainer
-                                position="top-right"
-                                autoClose={3000}
-                                hideProgressBar={true}
-                                closeOnClick={true}
-                                draggable={false}
-                                pauseOnHover={false}
-                            />
-                        </ShoppingCartProvider>
-                    </OrderDetailsProvider>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={3000}
+                            hideProgressBar={true}
+                            closeOnClick={true}
+                            draggable={false}
+                            pauseOnHover={false}
+                        />
+                    </ShoppingCartProvider>
                 </ProductDetailsProvider>
             </AuthProvider>
         </>
