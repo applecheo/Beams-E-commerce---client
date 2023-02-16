@@ -45,7 +45,7 @@ const Orders = () => {
                     return (
                         <div className="py-8" key={order._id}>
                             <div className="flex justify-start item-start space-y-2 flex-col ">
-                                <h1 className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9  text-gray-800">
+                                <h1 className="text-2xl lg:text-3xl font-semibold leading-7 lg:leading-9  text-gray-800">
                                     Order #{order?._id}
                                 </h1>
                                 <p className="text-base font-medium leading-6 text-gray-600">
