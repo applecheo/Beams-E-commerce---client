@@ -10,7 +10,7 @@ const BrowseMen = () => {
 
     useEffect(() => {
         fetchMenProduct();
-    });
+    }, []);
     const fetchMenProduct = async () => {
         const { data } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/men` as string);
 

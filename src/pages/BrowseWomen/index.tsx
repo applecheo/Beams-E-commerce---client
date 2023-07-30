@@ -10,7 +10,7 @@ const BrowseWomen = () => {
 
     useEffect(() => {
         fetchWomenProduct();
-    });
+    }, []);
     const fetchWomenProduct = async () => {
         const { data } = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/women` as string);
 
