@@ -21,63 +21,62 @@ const DropDown = () => {
             >
                 <div className="py-2 flex flex-col justify-center items-center" role="none">
                     {userData._id ? (
-                        <Link
-                            to="/account/profile"
-                            className="text-black block  text-sm"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id="menu-item-0"
-                        >
-                            Profile
-                        </Link>
-                    ) : (
-                        <Link to="/login" className="text-black block  text-sm">
-                            Profile
-                        </Link>
-                    )}
+                        <>
+                            <Link
+                                to="/account/profile"
+                                className="text-black block  text-sm"
+                                role="menuitem"
+                                tabIndex={-1}
+                                id="menu-item-0"
+                            >
+                                Profile
+                            </Link>
 
-                    {userData._id && (
-                        <Link
-                            to={linkToOrder}
-                            className="text-black block text-sm"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id="menu-item-0"
-                        >
-                            Orders
-                        </Link>
-                    )}
-                    {userData._id ? (
-                        <Link
-                            to="/account/wishlist"
-                            className="text-black block  text-sm"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id="menu-item-0"
-                        >
-                            Wishlist
-                        </Link>
-                    ) : (
-                        <Link to="/login" className="text-black block  text-sm">
-                            Wishlist
-                        </Link>
-                    )}
+                            <Link
+                                to={linkToOrder}
+                                className="text-black block text-sm"
+                                role="menuitem"
+                                tabIndex={-1}
+                                id="menu-item-0"
+                            >
+                                Orders
+                            </Link>
 
-                    {userData._id ? (
-                        <button
-                            type="submit"
-                            className="text-black block  text-sm"
-                            role="menuitem"
-                            tabIndex={-1}
-                            id="menu-item-3"
-                            onClick={signOut}
-                        >
-                            Sign out
-                        </button>
+                            <Link
+                                to="/account/wishlist"
+                                className="text-black block  text-sm"
+                                role="menuitem"
+                                tabIndex={-1}
+                                id="menu-item-0"
+                            >
+                                Wishlist
+                            </Link>
+
+                            <button
+                                type="submit"
+                                className="text-black block  text-sm"
+                                role="menuitem"
+                                tabIndex={-1}
+                                id="menu-item-3"
+                                onClick={signOut}
+                            >
+                                Sign out
+                            </button>
+                        </>
                     ) : (
-                        <Link to="/login" className="text-black block  text-sm">
-                            Login
-                        </Link>
+                        <>
+                            <Link to="/login" className="text-black block  text-sm">
+                                Profile
+                            </Link>
+
+                            <Link to="/login" className="text-black block  text-sm">
+                                Wishlist
+                            </Link>
+
+                            <Link to="/login" className="text-black block  text-sm">
+                                Login
+                            </Link>
+                        </>
                     )}
                 </div>
             </div>
