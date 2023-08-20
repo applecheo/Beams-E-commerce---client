@@ -33,7 +33,7 @@ const SignUp = () => {
 
         onSubmit: async (values) => {
             try {
-                await axios.post(`${process.env.REACT_APP_API_BASE_URL}/signup`, values, {
+                await axios.post(`${process.env.REACT_APP_API_BASE_URL}/user/signup`, values, {
                     headers: {
                         "Content-Type": "application/json",
                     },
