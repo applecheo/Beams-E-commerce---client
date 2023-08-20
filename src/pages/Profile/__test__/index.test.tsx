@@ -52,7 +52,7 @@ describe("Profile page", () => {
         userEvent.click(deleteButton);
 
         await waitFor(() =>
-            expect(axiosDeleteSpy).toHaveBeenCalledWith(expect.stringContaining("/account/profile/userid"), {
+            expect(axiosDeleteSpy).toHaveBeenCalledWith(expect.stringContaining("/user/userid"), {
                 headers: { Authorization: token },
             })
         );
