@@ -35,12 +35,12 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     useEffect(() => {
         if (TOKEN) {
             const reLogin = async () => {
-                const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/relogin`, {
+                const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/user/relogin`, {
                     headers: {
                         Authorization: `Bearer ${TOKEN}`,
                     },
                 });
-                const userData = await res.data.user;
+                const userData = await res.data;
                 updateUserData(userData);
             };
             reLogin();
@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: TAuthProviderProps) => {
     const updateWishlist = async (productId: string) => {
         if (userData) {
             const body = { userId: userData._id };
-            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${productId}` as string, body, {
+            await axios.put(`${process.env.REACT_APP_API_BASE_URL}/user/wishlist/${productId}` as string, body, {
                 headers: {
                     Authorization: `Bearer ${TOKEN}`,
                 },
