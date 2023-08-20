@@ -11,7 +11,7 @@ const Profile = () => {
     const deleteUser = async () => {
         const TOKEN = sessionStorage.getItem("token_key");
         if (confirmDelete === true && userData) {
-            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/account/profile/${userData?._id}` as string, {
+            await axios.delete(`${process.env.REACT_APP_API_BASE_URL}/user/${userData?._id}` as string, {
                 headers: {
                     Authorization: `Bearer ${TOKEN}`,
                 },
