@@ -19,15 +19,18 @@ const ShoppingCart = () => {
     const { userData } = useAuth();
     const { productData } = useProductDetails();
     const navigate = useNavigate();
+    const TOKEN = sessionStorage.getItem("token_key");
 
-    const stripeCheckOut = async (data: TData) => {
-        fetch(`${process.env.REACT_APP_API_BASE_URL}/create-checkout-session`, {
+    const sendOrderDetail = async (data: TData) => {
+        fetch(`${process.env.REACT_APP_API_BASE_URL}/checkout/create-checkout-session`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${TOKEN}`,
             },
             body: JSON.stringify({
-                items: data.products,
+                orderedBy: userData?._id,
+                products: data.products,
             }),
         })
             .then((res) => {
@@ -53,7 +56,6 @@ const ShoppingCart = () => {
         };
         if (userData?._id && data.products.length !== 0) {
             sendOrderDetail(data);
-            stripeCheckOut(data);
             return toast.info("Please proceed to make your payment");
         } else if (!userData?._id) {
             closeCart();

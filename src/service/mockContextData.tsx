@@ -16,7 +16,6 @@ export const shoppingCartContextValue: TShoppingCartContext = {
     addToCart: jest.fn(),
     cartItems: cartItemsData,
     removeFromCart: jest.fn(),
-    sendOrderDetail: jest.fn(),
 };
 
 const productData = [
