@@ -4,7 +4,7 @@ import { useAuth } from "context/AuthProvider";
 
 const DropDown = () => {
     const { userData, updateUserData } = useAuth();
-    const linkToOrder = `/account/orders/${userData._id}`;
+    const linkToOrder = `/account/orders/${userData?._id}`;
     const navigate = useNavigate();
     const signOut = () => {
         sessionStorage.removeItem("token_key");
@@ -20,7 +20,7 @@ const DropDown = () => {
                 tabIndex={-1}
             >
                 <div className="py-2 flex flex-col justify-center items-center" role="none">
-                    {userData._id ? (
+                    {userData?._id ? (
                         <>
                             <Link
                                 to="/account/profile"
