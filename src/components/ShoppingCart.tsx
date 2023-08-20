@@ -15,7 +15,7 @@ type TData = {
     products: string[];
 };
 const ShoppingCart = () => {
-    const { closeCart, isOpen, cartItems, sendOrderDetail } = useShoppingCart();
+    const { closeCart, isOpen, cartItems } = useShoppingCart();
     const { userData } = useAuth();
     const { productData } = useProductDetails();
     const navigate = useNavigate();

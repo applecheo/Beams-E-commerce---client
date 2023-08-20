@@ -1,8 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { toast } from "react-toastify";
 
-import axios from "axios";
-
 type TShoppingCartProviderProps = {
     children: ReactNode;
 };
@@ -14,17 +12,11 @@ export type TShoppingCartContext = {
     addToCart: (id: string) => void;
     cartItems: TCartItems[];
     removeFromCart: (id: string) => void;
-    sendOrderDetail: (data: TOrderDetails) => void;
 };
 
 export type TCartItems = {
     id: string;
     quantity: number;
-};
-
-type TOrderDetails = {
-    orderedBy: string;
-    products: string[];
 };
 
 export const ShoppingCartContext = createContext({} as TShoppingCartContext);
@@ -51,12 +43,8 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
                 return [...prev, { id, quantity: 1 }];
             } else {
                 return prev.map((item) => {
-                    // if (item.id === id) {
-                    //     return { ...item, quantity: item.quantity + 1 };
-                    // } else {
                     toast.info("Item is already in your cart");
                     return item;
-                    // }
                 });
             }
         });
@@ -68,20 +56,8 @@ export const ShoppingCartProvider = ({ children }: TShoppingCartProviderProps) =
         });
     };
 
-    const sendOrderDetail = async (data: TOrderDetails) => {
-        const TOKEN = sessionStorage.getItem("token_key");
-        setCartItems([]);
-        closeCart();
-        await axios.post(`${process.env.REACT_APP_API_BASE_URL}/checkout` as string, data, {
-            headers: {
-                Authorization: `Bearer ${TOKEN}`,
-            },
-        });
-    };
     return (
-        <ShoppingCartContext.Provider
-            value={{ openCart, isOpen, closeCart, addToCart, cartItems, removeFromCart, sendOrderDetail }}
-        >
+        <ShoppingCartContext.Provider value={{ openCart, isOpen, closeCart, addToCart, cartItems, removeFromCart }}>
             {children}
         </ShoppingCartContext.Provider>
     );
