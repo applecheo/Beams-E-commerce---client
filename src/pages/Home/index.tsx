@@ -17,8 +17,7 @@ const Home = () => {
     const third_page_element = newArrivalData.slice(10, 15);
 
     const fetchNewArrival = async () => {
-        const res = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/home` as string);
-        const data = res?.data;
+        const { data } = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/product/latest` as string);
         const filterNewArrival = data.filter((product: { isNewArrival: boolean }) => product?.isNewArrival === true);
         setNewArrivalData(filterNewArrival);
         const first5 = filterNewArrival.slice(0, 5);
