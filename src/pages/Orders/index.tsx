@@ -24,9 +24,14 @@ export type TProduct = {
 
 const Orders = () => {
     const [orderDetails, setOrderDetails] = useState<TOrder[]>([]);
+    const TOKEN = sessionStorage.getItem("token_key");
 
     const getOrderDetails = async (userId: string) => {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/account/orders/${userId}` as string);
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/order/${userId}` as string, {
+            headers: {
+                Authorization: `Bearer ${TOKEN}`,
+            },
+        });
         setOrderDetails(res.data.orders);
     };
     const { id } = useParams();
