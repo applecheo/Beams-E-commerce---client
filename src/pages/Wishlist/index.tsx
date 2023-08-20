@@ -8,11 +8,17 @@ import { TDisplayProduct } from "context/ProductDetailsProvider";
 const Wishlist = () => {
     const { userData } = useAuth();
     const [wishList, setWatchList] = useState<TDisplayProduct[]>([]);
+    const TOKEN = sessionStorage.getItem("token_key");
 
     useEffect(() => {
         const displayWishlist = async () => {
             const res = await axios.get(
-                `${process.env.REACT_APP_API_BASE_URL}/account/wishlist/${userData?._id}` as string
+                `${process.env.REACT_APP_API_BASE_URL}/user/wishlist/${userData?._id}` as string,
+                {
+                    headers: {
+                        Authorization: `Bearer ${TOKEN}`,
+                    },
+                }
             );
             const wishListData = res?.data?.wishList;
             const products = wishListData?.filter((x: { isSoldOut: boolean }) => x?.isSoldOut === false);
