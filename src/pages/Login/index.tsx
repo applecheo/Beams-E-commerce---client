@@ -24,7 +24,7 @@ const Login = () => {
 
         onSubmit: async (values) => {
             try {
-                const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/login`, values, {
+                const res = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/user/login`, values, {
                     headers: { "Content-Type": "application/json" },
                 });
                 navigate("/");
